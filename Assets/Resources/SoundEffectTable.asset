@@ -15,7 +15,4 @@ MonoBehaviour:
   SoundEffectPairs:
   - Type: 1
     AudioClip: {fileID: 8300000, guid: 49ea38ff8277d4f8a8ca6a1668014420, type: 3}
-    AudioVolume: 0.113
-  - Type: 0
-    AudioClip: {fileID: 8300000, guid: 49ea38ff8277d4f8a8ca6a1668014420, type: 3}
     AudioVolume: 1
