@@ -10,6 +10,10 @@ public class GameSetting : MonoBehaviour
     public uint InitialFertilizer;
     public uint InitialUsableBranches;
 
+    public uint WaterLimit;
+    public uint EnergyLimit;
+    public uint FertilizeLimit;
+
     public uint ConsumeWaterPerSecond;
     public uint ConsumeFertilizerPerSecond;
     public uint ConsumeEnergyPerTime;
