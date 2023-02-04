@@ -8,12 +8,12 @@ public class GamePlayPanel : MonoBehaviour
     public Water Water;
     public NutrientBar NutrientBar;
     public CrisBar CrisBar;
-    public void Init(ResourceTracker resourceTracker)
+    public void Init(ResourceTracker resourceTracker, GameSetting gameSetting)
     {
-        Water.Init(resourceTracker);
-        Timeer.Init(resourceTracker);
-        NutrientBar.Init(resourceTracker);
-        CrisBar.Init(resourceTracker);
+        Water.Init(resourceTracker, gameSetting);
+        Timeer.Init(resourceTracker, gameSetting);
+        NutrientBar.Init(resourceTracker, gameSetting);
+        CrisBar.Init(resourceTracker, gameSetting);
     }
 
     public void ShowPanel() { }
