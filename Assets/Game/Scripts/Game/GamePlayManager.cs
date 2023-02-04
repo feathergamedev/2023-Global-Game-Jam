@@ -21,9 +21,11 @@ public class GamePlayManager : MonoBehaviour
     public async void Play()
     {
         ResourceTracker = new ResourceTracker(
-            GameSetting.InitialLifeSeconds,
-            GameSetting.InitialWater,
-            GameSetting.InitialUsableBranches);
+            time: new ResourceSetting<ulong>(0, 100, GameSetting.InitialLifeSeconds), 
+            energy: new ResourceSetting<uint>(0, 100, 100), 
+            water: new ResourceSetting<uint>(0, 100, GameSetting.InitialWater), 
+            fertilizer: new ResourceSetting<uint>(0, 100, 100), 
+            branches: new ResourceSetting<uint>(0, 100, GameSetting.InitialUsableBranches));
 
         EncounterManager.PrepareAll(ResourceTracker);
          
