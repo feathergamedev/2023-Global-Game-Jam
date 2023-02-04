@@ -52,7 +52,7 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        ulong newValue = Math.Max(Time + value, _timeSetting.UpperBound);
+        ulong newValue = Math.Min(Time + value, _timeSetting.UpperBound);
         var newTime = new TimeResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentTime, newTime, ResourceValueChangedEventArgs.ChangeType.Increase));
@@ -66,7 +66,7 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        ulong newValue = Math.Min(Time - value, _timeSetting.LowerBound);
+        var newValue = (ulong)Math.Max((long)Time - (long)value, (long)_timeSetting.LowerBound);
         var newTime = new TimeResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentTime, newTime, ResourceValueChangedEventArgs.ChangeType.Decrease));
@@ -84,7 +84,7 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Max(Energy + value, _energySetting.UpperBound);
+        uint newValue = Math.Min(Energy + value, _energySetting.UpperBound);
         var newEnergy = new EnergyResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentEnergy, newEnergy, ResourceValueChangedEventArgs.ChangeType.Increase));
@@ -98,12 +98,12 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Min(Energy - value, _energySetting.LowerBound);
+        var newValue = (uint)Math.Max((int)Energy - (int)value, (int)_energySetting.LowerBound);
         var newEnergy = new EnergyResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentEnergy, newEnergy, ResourceValueChangedEventArgs.ChangeType.Decrease));
         _currentEnergy = newEnergy;
-        if (Energy < _energySetting.LowerBound)
+        if (Energy <= _energySetting.LowerBound)
         {
             ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentEnergy));
         }
@@ -116,7 +116,7 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Max(Water + value, _waterSetting.UpperBound);
+        uint newValue = Math.Min(Water + value, _waterSetting.UpperBound);
         var newWater = new WaterResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentWater, newWater, ResourceValueChangedEventArgs.ChangeType.Increase));
@@ -130,12 +130,12 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Min(Water - value, _waterSetting.LowerBound);
+        var newValue = (uint)Math.Max((int)Water - (int)value, (int)_waterSetting.LowerBound);
         var newWater = new WaterResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentWater, newWater, ResourceValueChangedEventArgs.ChangeType.Decrease));
         _currentWater = newWater;
-        if (Water < _waterSetting.LowerBound)
+        if (Water <= _waterSetting.LowerBound)
         {
             ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentWater));
         }
@@ -148,7 +148,7 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Max(Fertilizer + value, _fertilizerSetting.UpperBound);
+        uint newValue = Math.Min(Fertilizer + value, _fertilizerSetting.UpperBound);
         var newFertilizer = new FertilizerResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentFertilizer, newFertilizer, ResourceValueChangedEventArgs.ChangeType.Increase));
@@ -162,12 +162,12 @@ public sealed class ResourceTracker
             throw new ArgumentOutOfRangeException(nameof(value), "Should not be negative");
         }
 
-        uint newValue = Math.Min(Fertilizer - value, _fertilizerSetting.LowerBound);
+        var newValue = (uint)Math.Max((int)Fertilizer - (int)value, (int)_fertilizerSetting.LowerBound);
         var newFertilizer = new FertilizerResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentFertilizer, newFertilizer, ResourceValueChangedEventArgs.ChangeType.Decrease));
         _currentFertilizer = newFertilizer;
-        if (Fertilizer < _fertilizerSetting.LowerBound)
+        if (Fertilizer <= _fertilizerSetting.LowerBound)
         {
             ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentFertilizer));
         }
@@ -190,7 +190,7 @@ public sealed class ResourceTracker
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentBranch, newBranch, ResourceValueChangedEventArgs.ChangeType.Decrease));
         _currentBranch = newBranch;
-        if (Branch < _branchSetting.LowerBound)
+        if (Branch <= _branchSetting.LowerBound)
         {
             ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentBranch));
         }
