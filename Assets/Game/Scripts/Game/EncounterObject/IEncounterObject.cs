@@ -14,7 +14,7 @@ public enum EncounterType
 {
     None, 
     Water,
-    Energy,
+    Fertilizer,
     Block,
 }
 
