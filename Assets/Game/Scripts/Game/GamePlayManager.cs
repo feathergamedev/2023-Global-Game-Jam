@@ -29,6 +29,8 @@ public class GamePlayManager : MonoBehaviour
               fertilizer: new ResourceSetting<uint>(0, GameSetting.FertilizeLimit, GameSetting.InitialFertilizer),
               branches: new ResourceSetting<uint>(0, GameSetting.InitialUsableBranches, GameSetting.InitialUsableBranches));
 
+        ResourceTracker.ResourceExhausted += _OnResourceExhausted;
+
         EncounterManager.PrepareAll(ResourceTracker);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
@@ -49,7 +51,7 @@ public class GamePlayManager : MonoBehaviour
             if (time > 1)
             {
                 time -= 1;
-                if (Status == GameStatus.Grow || Status == GameStatus.Crash)
+                if (Status == GameStatus.Grow)
                 {
                     _ResourceUpdatePerSecond();
                 }
@@ -88,7 +90,7 @@ public class GamePlayManager : MonoBehaviour
             }
             else if (Status == GameStatus.Crash)
             {
-                RootController.SwitchBranch();
+                await RootController.SwitchBranch();
                 Status = GameStatus.Grow;
             }
 
@@ -106,19 +108,9 @@ public class GamePlayManager : MonoBehaviour
     #region GameEvent
     private void _ResourceUpdatePerSecond()
     {
-        ResourceTracker.DecreaseTime(1);
-        if (ResourceTracker.Time == 0)
-        {
-            _OnTimeOut();
-            return;
-        }
+        ResourceTracker.DecreaseTime(1); 
 
-        ResourceTracker.DecreaseWater(GameSetting.ConsumeWaterPerSecond);
-        if (ResourceTracker.Water == 0)
-        {
-            _OnWaterOut();
-            return;
-        }
+        ResourceTracker.DecreaseWater(GameSetting.ConsumeWaterPerSecond); 
 
         if (ResourceTracker.Fertilizer > 0)
         {
@@ -136,50 +128,45 @@ public class GamePlayManager : MonoBehaviour
     }
 
     private void _OnRootAction(int length)
-    { 
+    {
         ResourceTracker.DecreaseEnergy(GameSetting.ConsumeEnergyPerTime);
-        if (ResourceTracker.Energy == 0)
-        {
-            _OnEnergyOut();
-            return;
-        }
     }
 
     private void _OnRootCrash()
     {
         ResourceTracker.DecreaseBranch(1);
-        if (ResourceTracker.Branch == 0)
-        {
-            Status = GameStatus.End;
-            EndType = EndType.BranchOut;
-            Debug.Log("Status => End : BranchOut");
-        }
-        else
+        if (ResourceTracker.Branch > 0) 
         {
             Status = GameStatus.Crash;
             Debug.Log("Status => Crash ");
         }
     }
 
-    private void _OnTimeOut()
+    private void _OnResourceExhausted(object sender, ResourceExhaustedEventArgs args)
     {
-        Status = GameStatus.End;
-        EndType = EndType.TimeOut;
-        Debug.Log("Status => End : TimeOut");
-    }
-
-    private void _OnWaterOut()
-    {
-        Status = GameStatus.End;
-        EndType = EndType.WaterOut;
-        Debug.Log("Status => End : WaterOut");
-    }
-
-    private void _OnEnergyOut()
-    {
-        Status = GameStatus.End;
-        EndType = EndType.EnergyOut;
-        Debug.Log("Status => End : EnergyOut");
+        switch (args.Resource)
+        {
+            case TimeResource time:
+                Status = GameStatus.End;
+                EndType = EndType.TimeOut;
+                Debug.Log("Status => End : TimeOut");
+                break;
+            case WaterResource water:
+                Status = GameStatus.End;
+                EndType = EndType.WaterOut;
+                Debug.Log("Status => End : WaterOut");
+                break;
+            case EnergyResource energy:
+                Status = GameStatus.End;
+                EndType = EndType.EnergyOut;
+                Debug.Log("Status => End : EnergyOut");
+                break;
+            case BranchResource branch:
+                Status = GameStatus.End;
+                EndType = EndType.BranchOut;
+                Debug.Log("Status => End : BranchOut");
+                break;
+        }
     }
     #endregion
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lapis.Extension;
 using System;
+using Cysharp.Threading.Tasks;
 
 public enum PlayerState
 {
@@ -11,13 +12,13 @@ public enum PlayerState
     Growing = 3,
 }
 
-public class RootController : MonoBehaviour
+public class RootController : MonoBehaviour, IRootController
 {
     public event Action<int> OnGrowAction; 
     public event Action OnRootCrash;
     public void StartGrow() { }
     public void StopGrow() { }
-    public void SwitchBranch() { }
+    public async UniTask SwitchBranch() { }
 
     private PlayerState _currentPlayerState = PlayerState.SetDirection;
 

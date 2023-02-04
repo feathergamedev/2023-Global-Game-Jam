@@ -8,6 +8,7 @@ public sealed class ResourceExhaustedEventArgs : EventArgs
         {
             throw new ArgumentException($"Resource still had value {resource}", nameof(resource));
         }
+        Resource = resource;
     }
         
     public Resource Resource { get; }
