@@ -89,6 +89,7 @@ public class RootController : MonoBehaviour, IRootController
 
             case PlayerState.SetScale:
                 StartCoroutine(GrowRootSequence());
+                AudioManager.Instance.PlaySFX(ESoundEffectType.GrowRoot);
                 break;
         }
     }

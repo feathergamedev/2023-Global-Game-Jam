@@ -22,6 +22,11 @@ public class EncounterObject : MonoBehaviour, IEncounterObject
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        if (_data.Type == EncounterType.Block)
+            AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
+        else
+            AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
+
         if (_enable)
         {
             OnTriggetEvent?.Invoke(this, _data);

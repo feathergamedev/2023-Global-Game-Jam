@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -127,6 +127,8 @@ public class GamePlayManager : MonoBehaviour
         await CameraManager.ScrollToInitPos();
         await TreeGirl.SetFinalAppearance(tier);
         await UniTask.NextFrame();
+
+        SceneManager.LoadScene(0);
     }
     #endregion
 
