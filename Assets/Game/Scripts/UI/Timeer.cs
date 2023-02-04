@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Time : MonoBehaviour
+public class Timeer : MonoBehaviour
 {
-    public float timeValue = 300;
-    public Text timeText;
+    public float timeValue = 90;
+    public Text timerText;
 
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
         if (timeValue > 0)
         {
-//            timeValue -=
+            timeValue -= Time.deltaTime;
         }
         else
         {
@@ -30,9 +30,10 @@ public class Time : MonoBehaviour
             timeToDisplay = 0;
         }
 
-        float min = Mathf.FloorToInt(timeToDisplay / 60);
-        float sec = Mathf.FloorToInt(timeToDisplay % 60);
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        timeText.text = string.Format("{0:00}:{1:00}", min, sec);
+        timerText.text = string.Format("{0:00}:{1:00}:", minutes, seconds);
+
     }
 }

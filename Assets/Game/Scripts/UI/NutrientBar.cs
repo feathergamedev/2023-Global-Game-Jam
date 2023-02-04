@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Water : MonoBehaviour
+public class NutrientBar : MonoBehaviour
 {
-    public WaterResource water;
+    public EnergyResource energy;
     public Image fillimgae;
     private Slider slider;
 
@@ -20,21 +20,21 @@ public class Water : MonoBehaviour
             water: new ResourceSetting<uint>(0, 100, 100),
             fertilizer: new ResourceSetting<uint>(0, 100, 100),
             branches: new ResourceSetting<uint>(0, 100, 100));
-        
+
 
         tracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
-                case WaterResource w:
+                case EnergyResource w:
                     // Update value to UI or somewhere
                     // args.Value;
-                   if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
+                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        slider.value = w.Value; 
+                        slider.value = w.Value;
                         // do something 
                     }
-                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
+                    else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
                         slider.value -= w.Value;
                         // do something 
@@ -45,10 +45,11 @@ public class Water : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            tracker.IncreaseEnergy(10);
+            tracker.DecreaseEnergy(5);
+
         };
 
-        tracker.IncreaseWater(10);
-        tracker.DecreaseWater(10);
     }
 
     // Update is called once per frame
