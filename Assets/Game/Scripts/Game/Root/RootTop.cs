@@ -11,6 +11,7 @@ public class RootTop : MonoBehaviour
 
     public event Action<float> OnPositionYChange;
     private float initPosY;
+    private bool isMoving = false;
 
     [SerializeField] private LineRenderer _lineRenderer;
 
@@ -20,18 +21,27 @@ public class RootTop : MonoBehaviour
     {
         initPosY = transform.position.y;
 
-        _lineRenderer.positionCount = 1;
+//        _lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 5f));
+
+        _lineRenderer.positionCount = 2;
         var initLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
         _lineRenderer.SetPosition(0, initLinePointPos);
     }
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        if (isMoving)
+        {
+            var currentPointPos = new Vector3(transform.position.x, transform.position.y, 0);
+            _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, currentPointPos);
+        }
     }
 
     public void MoveTo(Vector3 position)
     {
+        isMoving = true;
+
         if (position.y > initPosY)
             position.y = initPosY;
 
@@ -43,7 +53,7 @@ public class RootTop : MonoBehaviour
                 _lineRenderer.positionCount++;
                 var newLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
                 _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, newLinePointPos);
+                isMoving = false;
             });
-
     }
 }
