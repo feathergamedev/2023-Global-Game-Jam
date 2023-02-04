@@ -2,6 +2,8 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class GamePlayManager : MonoBehaviour
@@ -11,6 +13,8 @@ public class GamePlayManager : MonoBehaviour
     public RootController RootController;
     public CameraManager CameraManager;
 
+    [SerializeField] private CanvasGroup GameplayUi;
+
     private ResourceTracker ResourceTracker;
 
     public GameStatus Status;
@@ -18,6 +22,7 @@ public class GamePlayManager : MonoBehaviour
 
     async void Start()
     {
+        GameplayUi.alpha = 0;
         Play();
     }
 
@@ -79,6 +84,9 @@ public class GamePlayManager : MonoBehaviour
     {
         await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
+        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
+
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
     }
 
     private async UniTask GamePlayMain()

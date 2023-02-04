@@ -21,7 +21,7 @@ public class RootTop : MonoBehaviour
     {
         initPosY = transform.position.y;
 
-//        _lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 5f));
+//          _lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 5f));
 
         _lineRenderer.positionCount = 2;
         var initLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
