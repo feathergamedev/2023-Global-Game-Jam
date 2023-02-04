@@ -32,14 +32,21 @@ public class RootController : MonoBehaviour, IRootController
     [SerializeField] private float _maxlengthScale = 8f;
     private float _currentScaleAmount = 2f;
 
+
     [Header("Rotation")]
     [SerializeField] private float _rotateSpeed = 2;
+
+    [Header("Record")]
+    private Transform lastRecordPoint;
+    private int recordCounter;
 
     // Start is called before the first frame update
     void Start()
     {
         _currentScaleAmount = _minlengthScale;
         _lengthGrowDirection = 1;
+
+        lastRecordPoint = rootTop.transform;
     }
 
     // Update is called once per frame
@@ -90,6 +97,7 @@ public class RootController : MonoBehaviour, IRootController
             case PlayerState.SetScale:
                 StartCoroutine(GrowRootSequence());
                 AudioManager.Instance.PlaySFX(ESoundEffectType.GrowRoot);
+                recordCounter++;
                 break;
         }
     }
@@ -103,9 +111,15 @@ public class RootController : MonoBehaviour, IRootController
 
         yield return new WaitForSeconds(Config.ROOT_GROW_PERFORM_TIME);
 
+        if (recordCounter == 3)
+        {
+            lastRecordPoint = rootTop.transform;
+            Debug.Log("New record point.");
+            recordCounter = 0;
+        }    
+
         _lengthIndicator.SetActive(true);
         _currentPlayerState = PlayerState.SetDirection;
-
     }
 
     private void StretchRootTopTo(Vector3 position)
