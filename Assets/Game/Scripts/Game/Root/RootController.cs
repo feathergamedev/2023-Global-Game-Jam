@@ -29,8 +29,6 @@ public class RootController : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float _rotateSpeed = 2;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,8 +52,11 @@ public class RootController : MonoBehaviour
         switch (_currentPlayerState)
         {
             case PlayerState.SetDirection:
-                _lengthIndicator.transform.SetRotationZ(_rotateSpeed);
-            break;
+                var moveDirection = Input.GetAxisRaw("Horizontal");
+                _lengthIndicator.transform.SetRotationZ(moveDirection * _rotateSpeed);
+
+                //                _lengthIndicator.transform.SetRotationZ(_rotateSpeed);
+                break;
 
             case PlayerState.SetScale:
                 _currentScaleAmount += _scaleChangeRate * _lengthGrowDirection * UnityEngine.Time.deltaTime;
