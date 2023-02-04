@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Water : MonoBehaviour
 {
     public Water water;
-    public Fillimgae fillimgae;
+    public Image fillimgae;
     private Slider slider;
 
     void Awake()
@@ -22,11 +22,11 @@ public class Water : MonoBehaviour
             fillimgae.enabled = false;
         }
 
-        if (slider.value > slider.maxValue && !fillimgae.enbled)
+        if (slider.value > slider.maxValue && !fillimgae.enabled)
         {
             fillimgae.enabled = true;
         }
         //float fillvalue = PlayerWater.current / playerWater.max;
-        slider.value = fillvalue;
+//        slider.value = fillvalue;
     }
 }
