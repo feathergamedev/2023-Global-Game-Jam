@@ -45,7 +45,6 @@ public class CameraManager : MonoBehaviour
 
     public async UniTask EnterStageCameraPerform()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(1));
         transform.DOLocalMoveY(gameStartPosY, gameStartPosMoveTime).SetEase(gameStartMoveEaseType);
 
         await UniTask.Delay(TimeSpan.FromSeconds(gameStartPosMoveTime + 0.5f));

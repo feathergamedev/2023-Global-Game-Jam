@@ -18,20 +18,7 @@ public class TreeGirl : MonoBehaviour
     {
 
         await Evolve(TierComputer.Tier.S);
-        /*
-        switch (tier)
-        {
-            case TierComputer.Tier.F:
-                ShowFailAnimation();
-                break;
-            default:
-                ShowEvolveAnimation(tier);
-                break;
-        }
-        */
-        await UniTask.Delay(System.TimeSpan.FromSeconds(5));
-
-        //        await UniTask.NextFrame();
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
     }
 
     private async UniTask Evolve(TierComputer.Tier tier)

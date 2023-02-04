@@ -13,7 +13,7 @@ public enum SceneType
 public static class Config
 {
     // Product Info
-    public const string teamName = "Global Game Jam 2023 Taipei \n Team ?";
+    public const string teamName = "Global Game Jam 2023 Taipei \n Team A";
     public const string audioSourcePrefabName = "AudioSourcePrefab";
 
     // Scene

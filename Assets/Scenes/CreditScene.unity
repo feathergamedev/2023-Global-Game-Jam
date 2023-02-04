@@ -352,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInColor: {r: 0, g: 0, b: 0, a: 0}
   fadeOutColor: {r: 0, g: 0, b: 0, a: 0}
+  DefaultUseFadeIn: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -757,7 +758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 950.6666, y: -576.9999}
+  m_AnchoredPosition: {x: 996, y: -606}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1950748916
@@ -781,8 +782,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e1230f21f5dec40a794fd6e663f2768b, type: 3}
-    m_FontSize: 80
+    m_Font: {fileID: 12800000, guid: de878e205a5d94d77b727ea45a86c15c, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -793,7 +794,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Feather Chung
+  m_Text: "Hungry\u3001\u8C46\u6F3F\u3001\u742E\u51F1\n\u5EFA\u6587\u3001\u555F\u5141\u3001\u7FBD\u6BDB\n"
 --- !u!222 &1950748917
 CanvasRenderer:
   m_ObjectHideFlags: 0
