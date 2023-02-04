@@ -14,7 +14,7 @@ public enum PlayerState
 
 public class RootController : MonoBehaviour, IRootController
 {
-    public event Action<int> OnGrowAction; 
+    public event Action<int> OnGrowAction;
     public event Action OnRootCrash;
     public void StartGrow() { }
     public void StopGrow() { }
@@ -36,9 +36,16 @@ public class RootController : MonoBehaviour, IRootController
     [Header("Rotation")]
     [SerializeField] private float _rotateSpeed = 2;
 
+    [Header("LineRenderer")]
+    [SerializeField] private LineRenderer _lineRendererPrefab;
+    [SerializeField] private LineRenderer _currentLineRenderer;
+
     [Header("Record")]
-    private Transform lastRecordPoint;
-    private int recordCounter;
+    private Stack<GameObject> _recordPointStack;
+    [SerializeField] private GameObject _recordPointPrefab;
+    [SerializeField] private GameObject _initRecordPoint;
+    [SerializeField] private int recordCounter;
+    [SerializeField] private int recordFrequency;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +53,10 @@ public class RootController : MonoBehaviour, IRootController
         _currentScaleAmount = _minlengthScale;
         _lengthGrowDirection = 1;
 
-        lastRecordPoint = rootTop.transform;
+        _recordPointStack = new Stack<GameObject>();
+        _recordPointStack.Push(_initRecordPoint);
+
+        AssignNewLineRenderer(true);
     }
 
     // Update is called once per frame
@@ -62,8 +72,29 @@ public class RootController : MonoBehaviour, IRootController
 
     public async UniTask SwitchBranch()
     {
-        //TODO : 要換分支，目前先做成直接Game Over。
-        Debug.Log("DIE!!!!!");
+        await rootTop.MoveTo(_recordPointStack.Pop().transform.position, false);
+
+        await DeactivateCurrentLineRenderer();
+
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
+
+        await AssignNewLineRenderer();
+
+        await UniTask.NextFrame();
+    }
+
+    private async UniTask DeactivateCurrentLineRenderer()
+    {
+        _currentLineRenderer.startColor = new Color(0, 87, 255);
+        _currentLineRenderer.endColor = new Color(0, 87, 255);
+        await UniTask.NextFrame();
+    }
+
+    private async UniTask AssignNewLineRenderer(bool isFirstTime = false)
+    {
+        _currentLineRenderer = Instantiate(_lineRendererPrefab, transform);
+        rootTop.SetLineRenderer(_currentLineRenderer, isFirstTime);
+        await UniTask.NextFrame();
     }
 
     private void StateMachine()
@@ -111,12 +142,13 @@ public class RootController : MonoBehaviour, IRootController
 
         yield return new WaitForSeconds(Config.ROOT_GROW_PERFORM_TIME);
 
-        if (recordCounter == 3)
+        if (recordCounter == recordFrequency)
         {
-            lastRecordPoint = rootTop.transform;
-            Debug.Log("New record point.");
+            var newRecordPoint = Instantiate(_recordPointPrefab, transform);
+            newRecordPoint.transform.position = rootTop.transform.position;
+            _recordPointStack.Push(newRecordPoint);
             recordCounter = 0;
-        }    
+        }
 
         _lengthIndicator.SetActive(true);
         _currentPlayerState = PlayerState.SetDirection;
