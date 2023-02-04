@@ -80,6 +80,7 @@ public class GamePlayManager : MonoBehaviour
 
     private async UniTask GamePlayMain()
     {
+        RootController.StartGrow();
         while (Status != GameStatus.End)
         {
             if (Status == GameStatus.Grow)
@@ -87,10 +88,13 @@ public class GamePlayManager : MonoBehaviour
             }
             else if (Status == GameStatus.Crash)
             {
+                RootController.SwitchBranch();
+                Status = GameStatus.Grow;
             }
 
             await UniTask.NextFrame();
         }
+        RootController.StopGrow();
     }
 
     private async UniTask DisplayEnd()
@@ -122,7 +126,7 @@ public class GamePlayManager : MonoBehaviour
             ResourceTracker.IncreaseEnergy(GameSetting.BonusRecoverEnergyPerSecond);
         }
 
-        ResourceTracker.IncreaseEnergy(GameSetting.RecoverEnergyPerSecond); 
+        ResourceTracker.IncreaseEnergy(GameSetting.RecoverEnergyPerSecond);
 
         Debug.Log($"GameStatus[{Status}] " +
             $"Time[{ResourceTracker.Time}] " +
@@ -147,7 +151,8 @@ public class GamePlayManager : MonoBehaviour
         if (ResourceTracker.Branch == 0)
         {
             Status = GameStatus.End;
-            Debug.Log("Status => End ");
+            EndType = EndType.BranchOut;
+            Debug.Log("Status => End : BranchOut");
         }
         else
         {
@@ -160,18 +165,21 @@ public class GamePlayManager : MonoBehaviour
     {
         Status = GameStatus.End;
         EndType = EndType.TimeOut;
+        Debug.Log("Status => End : TimeOut");
     }
 
     private void _OnWaterOut()
     {
         Status = GameStatus.End;
         EndType = EndType.WaterOut;
+        Debug.Log("Status => End : WaterOut");
     }
 
     private void _OnEnergyOut()
     {
         Status = GameStatus.End;
         EndType = EndType.EnergyOut;
+        Debug.Log("Status => End : EnergyOut");
     }
     #endregion
 }
