@@ -30,6 +30,31 @@ namespace Lapis.Extension
                     break;
             }
         }
+
+        public static void SetScaleX(this Transform transform, float amount)
+            => SetScale(transform, 'X', amount);
+
+        public static void SetScaleY(this Transform transform, float amount)
+            => SetScale(transform, 'Y', amount);
+
+        public static void SetScaleZ(this Transform transform, float amount)
+            => SetScale(transform, 'Z', amount);
+
+        private static void SetScale(this Transform transform, char axis, float amount)
+        {
+            switch (axis)
+            {
+                case 'X':
+                    transform.localScale = new Vector3(amount, 1, 1);
+                    break;
+                case 'Y':
+                    transform.localScale = new Vector3(1, amount, 1);
+                    break;
+                case 'Z':
+                    transform.localScale = new Vector3(1, 1, amount);
+                    break;
+            }
+        }
     }
 }
 
