@@ -44,7 +44,7 @@ public class GamePlayManager : MonoBehaviour
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
 
-        GamePlayPanel.Init(ResourceTracker);
+        GamePlayPanel.Init(ResourceTracker, GameSetting);
 
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }

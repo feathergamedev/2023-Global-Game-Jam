@@ -11,7 +11,7 @@ public class NutrientBar : MonoBehaviour
     private Slider slider;
     private ResourceTracker _resourceTracker;
 
-    public void Init(ResourceTracker ResourceTracker)
+    public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
         _resourceTracker = ResourceTracker;
 
