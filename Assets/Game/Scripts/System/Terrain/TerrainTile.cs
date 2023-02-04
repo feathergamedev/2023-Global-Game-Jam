@@ -8,10 +8,8 @@ using UnityEngine;
 
 public sealed class TerrainTile
 {
-    private int _widthPixel;
-    private int _heightPixel;
-
-    public List<TerrainObject> Objects { get; }
+    public int HeightPixel { get; }
+    private List<TerrainObject> _objects { get; }
 
     public TerrainTile([NotNull] GameObject[] itemTemplates, int widthPixel, int heightPixel)
     {
@@ -29,20 +27,27 @@ public sealed class TerrainTile
             throw new ArgumentOutOfRangeException(nameof(heightPixel));
         }
 
-        _widthPixel = widthPixel;
-        _heightPixel = heightPixel;
-        
-        Objects = new List<TerrainObject>
+        HeightPixel = heightPixel;
+
+        _objects = new List<TerrainObject>
         {
             new TerrainObject(itemTemplates[0], new Vector2(10, 10)),
             new TerrainObject(itemTemplates[1], new Vector2(20, 20)),
             new TerrainObject(itemTemplates[2], new Vector2(30, 30)),
-            new TerrainObject(itemTemplates[3], new Vector2(40, 40))
         };
 
-        if (!Objects.All(o => o.Position.x <= _widthPixel && o.Position.y <= _heightPixel))
+        if (!_objects.All(o => o.Position.x <= widthPixel && o.Position.y <= heightPixel))
         {
             throw new ArgumentException($"Some of {nameof(TerrainObject)} resided in wrong position");
+        }
+    }
+
+    public void Enable(Action<EncounterEventData> onTriggerEvent)
+    {
+        foreach (TerrainObject obj in _objects)
+        {
+            obj.OnCollidedEvent += onTriggerEvent;
+            obj.Instantiate();
         }
     }
 }

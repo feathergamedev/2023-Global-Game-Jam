@@ -8,6 +8,7 @@ using System;
 
 public class CameraManager : MonoBehaviour
 {
+    public event Action<float> OnPositionYChanged;
 
     [SerializeField] CameraEffectController _cameraEffectController;
 
@@ -22,7 +23,11 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rootTop.OnPositionYChange += ChangeCameraPosY;
+        rootTop.OnPositionYChange += yChangeAmount =>
+        {
+            ChangeCameraPosY(yChangeAmount);
+            OnPositionYChanged?.Invoke(yChangeAmount);
+        };
     }
 
     // Update is called once per frame

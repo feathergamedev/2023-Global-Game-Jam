@@ -1,8 +1,5 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
 
@@ -38,7 +35,7 @@ public class GamePlayManager : MonoBehaviour
 
         ResourceTracker.ResourceExhausted += _OnResourceExhausted;
 
-        EncounterManager.PrepareAll(ResourceTracker);
+        EncounterManager.PrepareAll(ResourceTracker, CameraManager);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
         RootController.OnGrowAction += _OnRootAction;

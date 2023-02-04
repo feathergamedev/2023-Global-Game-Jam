@@ -1,14 +1,35 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
+using System.Linq;
 
-public class EncounterManager : MonoBehaviour
+using UnityEngine;
+
+public enum EncounterType
+{
+    None, 
+    Water,
+    Fertilizer,
+    Block,
+    Time
+}
+
+[Serializable]
+public class EncounterEventData
+{
+    public EncounterType Type;
+    public uint EffectValue;
+}
+
+public sealed class EncounterManager : MonoBehaviour
 {
     public event Action OnRootCrash;
 
     public GameObject[] ItemTemplates;
+
+    public GameObject _dirt;
+
+    private float _yCameraDelta;
+    private List<TerrainTile> _existedTiles = new List<TerrainTile>();
 
     [Serializable]
     public class EncounterObjectViewData
@@ -17,40 +38,48 @@ public class EncounterManager : MonoBehaviour
         public EncounterEventData Data;
     }
     
-    public List<EncounterObjectViewData> ViewDatas;
     private ResourceTracker _resourceTracker;
 
-    public void PrepareAll(ResourceTracker resourceTracker)
+    public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager)
     {
         _resourceTracker = resourceTracker;
-        // Create multiple tiles
-        var tile = new TerrainTile(ItemTemplates, 1920, 1080);
-        
-        foreach (var viewData in ViewDatas)
-        {
-            viewData.Object.Init(viewData.Data);
-            viewData.Object.OnTriggetEvent += _OnTriggerEvent;
-        }
-    }
 
-    private void _OnTriggerEvent(EncounterObject encounterObject, EncounterEventData data)
-    {
-        switch (data.Type)
+        _existedTiles.Add(CreateNewTerrainTile());
+        cameraManager.OnPositionYChanged += yChangeAmount =>
         {
-            case EncounterType.Water:
-                _resourceTracker.IncreaseWater(data.EffectValue);
-                break;
-            case EncounterType.Fertilizer:
-                _resourceTracker.IncreaseFertilizer(data.EffectValue);
-                break;
-            case EncounterType.Block:
-                OnRootCrash?.Invoke();
-                break;
-            case EncounterType.Time:
-                _resourceTracker.IncreaseTime(data.EffectValue);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            _yCameraDelta += yChangeAmount;
+            if (_existedTiles.Sum(t => t.HeightPixel) < _yCameraDelta + 100)
+            {
+                _existedTiles.Add(CreateNewTerrainTile());
+            }
+        };
+            
+        TerrainTile CreateNewTerrainTile()
+        {
+            var terrainTile = new TerrainTile(ItemTemplates, 1920, 1080);
+            terrainTile.Enable(OnTriggerEvent);
+            return terrainTile;
+        }
+        
+        void OnTriggerEvent(EncounterEventData data)
+        {
+            switch (data.Type)
+            {
+                case EncounterType.Water:
+                    _resourceTracker.IncreaseWater(data.EffectValue);
+                    break;
+                case EncounterType.Fertilizer:
+                    _resourceTracker.IncreaseFertilizer(data.EffectValue);
+                    break;
+                case EncounterType.Block:
+                    OnRootCrash?.Invoke();
+                    break;
+                case EncounterType.Time:
+                    _resourceTracker.IncreaseTime(data.EffectValue);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

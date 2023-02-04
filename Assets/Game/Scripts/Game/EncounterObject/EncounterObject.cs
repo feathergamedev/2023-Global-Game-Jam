@@ -1,45 +1,63 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public sealed class EncounterObject : MonoBehaviour, IEncounterObject
+public sealed class EncounterObject : MonoBehaviour
 {
-    public event Action<EncounterObject, EncounterEventData> OnTriggetEvent;
-
     public Collider2D Collider2D;
     public SpriteRenderer SpriteRenderer;
     public EncounterEventData EncounterEventData;
 
-    private EncounterEventData _data;
     private bool _enable;
-
-    public void Init(TerrainObject obj)
-    {
-        obj.EncounterType = EncounterEventData.Type;
-        obj.EffectValue = EncounterEventData.EffectValue;
-    }
-
-    public void Init(EncounterEventData data)
-    {
-        OnTriggetEvent = null;
-        _data = data;
-        _enable = true;
-    }
-
-    public void Consume()
-    {
-        _enable = false;
-        var color = SpriteRenderer.color;
-        color.a = 0.3f;
-        SpriteRenderer.color = color;
-    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (_enable)
+        if (!_enable)
         {
-            OnTriggetEvent?.Invoke(this, _data);
+            return;
         }
+        
+        HandleCollided();
+        _OnCollidedEventHandler?.Invoke(this, EncounterEventData);
+
+        void HandleCollided()
+        {
+            switch (EncounterEventData.Type)
+            {
+                case EncounterType.Water:
+                    Consume();
+                    Debug.Log("Trigger Water " + EncounterEventData.EffectValue);
+                    break;
+                case EncounterType.Fertilizer:
+                    Destroy(gameObject);
+                    Debug.Log("Trigger Fertilizer " + EncounterEventData.EffectValue);
+                    break;
+                case EncounterType.Block:
+                    Debug.Log("Trigger Block");
+                    break;
+                case EncounterType.Time:
+                    Destroy(gameObject);
+                    Debug.Log("Trigger Time");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        void Consume()
+        {
+            _enable = false;
+            Color color = SpriteRenderer.color;
+            color.a = 0.3f;
+            SpriteRenderer.color = color;
+        }
+    }
+
+    private event Action<EncounterObject, EncounterEventData> _OnCollidedEventHandler;
+
+    public void Init(Action<EncounterObject, EncounterEventData> collidedEventHandler = null)
+    {
+        _OnCollidedEventHandler = collidedEventHandler;
+        _enable = true;
     }
 }
