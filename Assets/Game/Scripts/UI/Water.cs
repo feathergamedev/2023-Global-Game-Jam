@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Water : MonoBehaviour
 {
-    public Water water;
+    public WaterResource water;
     public Image fillimgae;
     private Slider slider;
 
@@ -31,6 +31,7 @@ public class Water : MonoBehaviour
                     }
                     else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
+                        slider.value -= w.Value;
                         // do something 
                     }
                     break;
@@ -54,7 +55,7 @@ public class Water : MonoBehaviour
         {
             fillimgae.enabled = true;
         }
-        // float fillvalue = 
+        //float fillvalue = WaterResource
         //slider.value = fillvalue;
     }
 }
