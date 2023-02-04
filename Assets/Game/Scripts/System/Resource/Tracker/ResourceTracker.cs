@@ -58,9 +58,10 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds upper bound {_timeSetting.UpperBound}");
         }
 
-        _currentTime = new TimeResource(newValue);
+        var newTime = new TimeResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentTime, ResourceValueChangedEventArgs.ChangeType.Increase));
+            (this, new ResourceValueChangedEventArgs(_currentTime, newTime, ResourceValueChangedEventArgs.ChangeType.Increase));
+        _currentTime = newTime;
     }
 
     public void DecreaseTime(ulong value)
@@ -76,10 +77,14 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds lower bound {_timeSetting.LowerBound}");
         }
 
-        _currentTime = new TimeResource(newValue);
+        var newTime = new TimeResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentTime, ResourceValueChangedEventArgs.ChangeType.Decrease));
-        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentTime));
+            (this, new ResourceValueChangedEventArgs(_currentTime, newTime, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        _currentTime = newTime;
+        if (Time < _timeSetting.LowerBound)
+        {
+            ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentTime));
+        }
     }
 
     public void IncreaseEnergy(uint value)
@@ -95,9 +100,10 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds upper bound {_energySetting.UpperBound}");
         }
 
-        _currentEnergy = new EnergyResource(newValue);
+        var newEnergy = new EnergyResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentEnergy, ResourceValueChangedEventArgs.ChangeType.Increase));
+            (this, new ResourceValueChangedEventArgs(_currentEnergy, newEnergy, ResourceValueChangedEventArgs.ChangeType.Increase));
+        _currentEnergy = newEnergy;
     }
 
     public void DecreaseEnergy(uint value)
@@ -113,10 +119,14 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds lower bound {_energySetting.LowerBound}");
         }
 
-        _currentEnergy = new EnergyResource(newValue);
+        var newEnergy = new EnergyResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentEnergy, ResourceValueChangedEventArgs.ChangeType.Decrease));
-        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentEnergy));
+            (this, new ResourceValueChangedEventArgs(_currentEnergy, newEnergy, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        _currentEnergy = newEnergy;
+        if (Energy < _energySetting.LowerBound)
+        {
+            ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentEnergy));
+        }
     }
 
     public void IncreaseWater(uint value)
@@ -132,9 +142,10 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds upper bound {_waterSetting.UpperBound}");
         }
 
-        _currentWater = new WaterResource(newValue);
+        var newWater = new WaterResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentWater, ResourceValueChangedEventArgs.ChangeType.Increase));
+            (this, new ResourceValueChangedEventArgs(_currentWater, newWater, ResourceValueChangedEventArgs.ChangeType.Increase));
+        _currentWater = newWater;
     }
 
     public void DecreaseWater(uint value)
@@ -150,10 +161,14 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds lower bound {_waterSetting.LowerBound}");
         }
 
-        _currentWater = new WaterResource(newValue);
+        var newWater = new WaterResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentWater, ResourceValueChangedEventArgs.ChangeType.Decrease));
-        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentWater));
+            (this, new ResourceValueChangedEventArgs(_currentWater, newWater, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        _currentWater = newWater;
+        if (Water < _waterSetting.LowerBound)
+        {
+            ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentWater));
+        }
     }
 
     public void IncreaseFertilizer(uint value)
@@ -169,9 +184,10 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds upper bound {_fertilizerSetting.UpperBound}");
         }
 
-        _currentFertilizer = new FertilizerResource(newValue);
+        var newFertilizer = new FertilizerResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentFertilizer, ResourceValueChangedEventArgs.ChangeType.Increase));
+            (this, new ResourceValueChangedEventArgs(_currentFertilizer, newFertilizer, ResourceValueChangedEventArgs.ChangeType.Increase));
+        _currentFertilizer = newFertilizer;
     }
 
     public void DecreaseFertilizer(uint value)
@@ -187,10 +203,14 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds lower bound {_fertilizerSetting.LowerBound}");
         }
 
-        _currentFertilizer = new FertilizerResource(newValue);
+        var newFertilizer = new FertilizerResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentFertilizer, ResourceValueChangedEventArgs.ChangeType.Decrease));
-        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentFertilizer));
+            (this, new ResourceValueChangedEventArgs(_currentFertilizer, newFertilizer, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        _currentFertilizer = newFertilizer;
+        if (Fertilizer < _fertilizerSetting.LowerBound)
+        {
+            ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentFertilizer));
+        }
     }
 
     public void DecreaseBranch(uint value)
@@ -206,9 +226,13 @@ public sealed class ResourceTracker
             throw new InvalidOperationException($"New time value {newValue} exceeds lower bound {_branchSetting.LowerBound}");
         }
 
-        _currentBranch = new BranchResource(newValue);
+        var newBranch = new BranchResource(newValue);
         ResourceValueChanged?.Invoke
-            (this, new ResourceValueChangedEventArgs(_currentBranch, ResourceValueChangedEventArgs.ChangeType.Decrease));
-        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentBranch));
+            (this, new ResourceValueChangedEventArgs(_currentBranch, newBranch, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        _currentBranch = newBranch;
+        if (Branch < _branchSetting.LowerBound)
+        {
+            ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentBranch));
+        }
     }
 }
