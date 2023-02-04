@@ -16,6 +16,7 @@ public enum EncounterType
     Water,
     Fertilizer,
     Block,
+    Time
 }
 
 [Serializable]

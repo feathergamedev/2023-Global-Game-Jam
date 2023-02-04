@@ -91,7 +91,7 @@ public class GamePlayManager : MonoBehaviour
 
     #region GameEvent
     private void _ResourceUpdatePerSecond()
-    { 
+    { /*
         ResourceTracker.DecreaseWater(GameSetting.ConsumeWaterPerSecond);
 
         if (ResourceTracker.Fertilizer > 0)
@@ -101,15 +101,19 @@ public class GamePlayManager : MonoBehaviour
         }
 
         ResourceTracker.IncreaseEnergy(GameSetting.RecoverEnergyPerSecond);
+        */
     }
 
     private void _OnRootAction()
     {
+        /*
         ResourceTracker.DecreaseEnergy(GameSetting.ConsumeEnergyPerTime);
+        */
     }
 
     private void _OnRootCrash()
     {
+        /*
         ResourceTracker.DecreaseBranches();
         if (ResourceTracker.Branches == 0)
         {
@@ -121,6 +125,7 @@ public class GamePlayManager : MonoBehaviour
             Status = GameStatus.Crash;
             Debug.Log("Status => Crash ");
         }
+        */
     }
     #endregion
 }

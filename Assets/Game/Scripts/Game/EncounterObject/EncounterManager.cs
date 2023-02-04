@@ -40,6 +40,9 @@ public class EncounterManager : MonoBehaviour
             case EncounterType.Block:
                 Debug.Log("Trigger Block");
                 break;
+            case EncounterType.Time:
+                Debug.Log("Trigger Time");
+                break;
         }
     }
 }
