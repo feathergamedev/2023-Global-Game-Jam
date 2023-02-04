@@ -2347,6 +2347,7 @@ MonoBehaviour:
   EncounterManager: {fileID: 1639918992}
   RootController: {fileID: 1286760976}
   CameraManager: {fileID: 2002963154}
+  GamePlayPanel: {fileID: 0}
   GameplayUi: {fileID: 1548627148}
   Status: 0
   EndType: 0
@@ -2752,6 +2753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb330f9abb73d184094c4938487d1643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemTemplate:
+  - {fileID: 8191448865331262347, guid: 4013e6aa99d714a5192e4613ddc7996c, type: 3}
+  - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
+  - {fileID: 3077474334861663836, guid: fc99112f39df34818a86612139554c20, type: 3}
   ViewDatas:
   - Object: {fileID: 847267827}
     Data:

@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EncounterManager : MonoBehaviour
 {
     public event Action OnRootCrash;
+
+    public GameObject[] ItemTemplates;
 
     [Serializable]
     public class EncounterObjectViewData
@@ -20,6 +23,9 @@ public class EncounterManager : MonoBehaviour
     public void PrepareAll(ResourceTracker resourceTracker)
     {
         _resourceTracker = resourceTracker;
+        // Create multiple tiles
+        var tile = new TerrainTile(ItemTemplates, 1920, 1080);
+        
         foreach (var viewData in ViewDatas)
         {
             viewData.Object.Init(viewData.Data);
@@ -33,23 +39,18 @@ public class EncounterManager : MonoBehaviour
         {
             case EncounterType.Water:
                 _resourceTracker.IncreaseWater(data.EffectValue);
-                encounterObject.Consume();
-                Debug.Log("Trigger Water " + data.EffectValue);
                 break;
             case EncounterType.Fertilizer:
                 _resourceTracker.IncreaseFertilizer(data.EffectValue);
-                encounterObject.Remove();
-                Debug.Log("Trigger Fertilizer " + data.EffectValue);
                 break;
             case EncounterType.Block:
                 OnRootCrash?.Invoke();
-                Debug.Log("Trigger Block");
                 break;
             case EncounterType.Time:
                 _resourceTracker.IncreaseTime(data.EffectValue);
-                encounterObject.Remove();
-                Debug.Log("Trigger Time");
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }
