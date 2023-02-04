@@ -20,14 +20,14 @@ public class RootController : MonoBehaviour
 
     [Header("Scale")]
     [SerializeField] private GameObject _lengthIndicator;
-    [SerializeField] private float _scaleChangeRate = 3f;
+    [SerializeField] private float _scaleChangeRate = 10f;
     [SerializeField] private float _lengthGrowDirection = 1;
     [SerializeField] private float _minlengthScale = 3f;
     [SerializeField] private float _maxlengthScale = 8f;
-    private float _currentScaleAmount = 3f;
+    private float _currentScaleAmount = 2f;
 
     [Header("Rotation")]
-    [SerializeField] private float _rotateSpeed = 5;
+    [SerializeField] private float _rotateSpeed = 2;
 
 
 
