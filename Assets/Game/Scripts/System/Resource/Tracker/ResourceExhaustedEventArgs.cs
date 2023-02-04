@@ -1,8 +1,8 @@
 using System;
 
-public sealed class OutOfResourcesEventArgs : EventArgs
+public sealed class ResourceExhaustedEventArgs : EventArgs
 {
-    internal OutOfResourcesEventArgs(Resource resource)
+    internal ResourceExhaustedEventArgs(Resource resource)
     {
         if (!resource.IsExhausted)
         {

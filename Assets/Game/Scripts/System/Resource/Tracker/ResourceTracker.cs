@@ -43,7 +43,7 @@ public sealed class ResourceTracker
     public uint Water => _currentWater.Value;
     public uint Branch => _currentBranch.Value;
     public event EventHandler<ResourceValueChangedEventArgs> ResourceValueChanged;
-    public event EventHandler<OutOfResourcesEventArgs> ResourceExhausted;
+    public event EventHandler<ResourceExhaustedEventArgs> ResourceExhausted;
 
     public void IncreaseTime(ulong value)
     {
@@ -79,6 +79,7 @@ public sealed class ResourceTracker
         _currentTime = new TimeResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentTime, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentTime));
     }
 
     public void IncreaseEnergy(uint value)
@@ -115,6 +116,7 @@ public sealed class ResourceTracker
         _currentEnergy = new EnergyResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentEnergy, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentEnergy));
     }
 
     public void IncreaseWater(uint value)
@@ -151,6 +153,7 @@ public sealed class ResourceTracker
         _currentWater = new WaterResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentWater, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentWater));
     }
 
     public void IncreaseFertilizer(uint value)
@@ -187,6 +190,7 @@ public sealed class ResourceTracker
         _currentFertilizer = new FertilizerResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentFertilizer, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentFertilizer));
     }
 
     public void DecreaseBranch(uint value)
@@ -205,5 +209,6 @@ public sealed class ResourceTracker
         _currentBranch = new BranchResource(newValue);
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentBranch, ResourceValueChangedEventArgs.ChangeType.Decrease));
+        ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentBranch));
     }
 }
