@@ -58,7 +58,7 @@ public class RootController : MonoBehaviour
             break;
 
             case PlayerState.SetScale:
-                _currentScaleAmount += _scaleChangeRate * _lengthGrowDirection * Time.deltaTime;
+                _currentScaleAmount += _scaleChangeRate * _lengthGrowDirection * UnityEngine.Time.deltaTime;
                 _lengthIndicator.transform.SetScaleY(_currentScaleAmount);
                 if (_currentScaleAmount >= _maxlengthScale || _currentScaleAmount <= _minlengthScale)
                     _lengthGrowDirection *= -1;

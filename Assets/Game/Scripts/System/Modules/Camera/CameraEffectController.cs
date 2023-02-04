@@ -39,7 +39,7 @@ public class CameraEffectController : MonoSingleton<CameraEffectController>
         if (isFadeIn)
         {
             if (alpha > 0)
-                alpha -= Time.deltaTime / duration;
+                alpha -= UnityEngine.Time.deltaTime / duration;
             else
                 isFadeIn = false;
 
@@ -48,7 +48,7 @@ public class CameraEffectController : MonoSingleton<CameraEffectController>
         else if (isFadeOut)
         {
             if (alpha < 1)
-                alpha += Time.deltaTime / duration;
+                alpha += UnityEngine.Time.deltaTime / duration;
             else
                 isFadeOut = false;
 

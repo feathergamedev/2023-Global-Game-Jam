@@ -13,7 +13,7 @@ public class Time : MonoBehaviour
     {
         if (timeValue > 0)
         {
-            timeValue -= 
+//            timeValue -=
         }
         else
         {
