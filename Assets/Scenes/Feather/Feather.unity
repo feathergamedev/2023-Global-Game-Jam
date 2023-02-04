@@ -2626,6 +2626,8 @@ MonoBehaviour:
   CameraManager: {fileID: 2002963154}
   GamePlayPanel: {fileID: 1595508986}
   TreeGirl: {fileID: 387793272}
+  GameResultMenu: {fileID: 0}
+  EvolveParticle: {fileID: 0}
   GameplayUi: {fileID: 1548627148}
   Status: 0
   EndType: 0
@@ -2732,6 +2734,12 @@ MonoBehaviour:
   _minlengthScale: 3
   _maxlengthScale: 8
   _rotateSpeed: 2
+  _lineRendererPrefab: {fileID: 0}
+  _currentLineRenderer: {fileID: 0}
+  _recordPointPrefab: {fileID: 0}
+  _initRecordPoint: {fileID: 0}
+  recordCounter: 0
+  recordFrequency: 0
 --- !u!4 &1312544566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3077474334861663827, guid: fc99112f39df34818a86612139554c20, type: 3}
