@@ -18,27 +18,9 @@ public enum EncounterType
     Block,
 }
 
-public struct EncounterEventData
+[Serializable]
+public class EncounterEventData
 {
     public EncounterType Type;
-    public string EffectValue;
-}
-
-public class EncounterObject : MonoBehaviour, IEncounterObject
-{
-    public event Action<EncounterObject, EncounterEventData> OnTriggetEvent;
-    public Collider Collider2D;
-
-    private EncounterEventData _data;
-
-    public void Init(EncounterEventData data)
-    {
-        OnTriggetEvent = null;
-        _data = data;
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        OnTriggetEvent?.Invoke(this, _data);
-    }
+    public uint EffectValue;
 }
