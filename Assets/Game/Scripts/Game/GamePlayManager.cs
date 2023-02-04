@@ -8,6 +8,7 @@ public class GamePlayManager : MonoBehaviour
 {
     public GameSetting GameSetting;
     public EncounterManager EncounterManager;
+    public RootController RootController;
 
     private ResourceTracker ResourceTracker;
     private GameStatus Status;
@@ -102,6 +103,8 @@ public class GamePlayManager : MonoBehaviour
 
         ResourceTracker.IncreaseEnergy(GameSetting.RecoverEnergyPerSecond);
         */
+
+        Debug.Log($"GameStatus[{Status}]  Water[{0}] Energy[{1}] Fertilizer[{2}]");
     }
 
     private void _OnRootAction()
