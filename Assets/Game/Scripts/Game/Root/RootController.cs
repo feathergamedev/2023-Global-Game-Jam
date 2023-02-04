@@ -60,7 +60,9 @@ public class RootController : MonoBehaviour, IRootController
         {
             case PlayerState.SetDirection:
                 var moveDirection = Input.GetAxisRaw("Horizontal");
-                _lengthIndicator.transform.SetRotationZ(moveDirection * _rotateSpeed);
+                var newRotation = rootTop.transform.eulerAngles.z + (moveDirection * _rotateSpeed);
+                rootTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, newRotation));
+                //                rootTop.transform.SetRotationZ(moveDirection * _rotateSpeed);
                 break;
 
             case PlayerState.SetScale:
