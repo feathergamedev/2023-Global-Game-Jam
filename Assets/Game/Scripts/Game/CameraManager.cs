@@ -21,12 +21,19 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(EnterStagePerform());
+
+        rootTop.OnPositionYChange += ChangeCameraPosY;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void ChangeCameraPosY(float posYChangeAmount)
+    {
+        transform.DOMoveY(transform.position.y + posYChangeAmount, 0.3f).SetEase(Ease.Linear);
     }
 
     private IEnumerator EnterStagePerform()
