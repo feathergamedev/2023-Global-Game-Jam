@@ -9,20 +9,13 @@ public class NutrientBar : MonoBehaviour
     public EnergyResource energy;
     public Image fillimgae;
     private Slider slider;
+    private ResourceTracker _resourceTracker;
 
-    void Awake()
+    public void Init(ResourceTracker ResourceTracker)
     {
-        slider = GetComponent<Slider>();
+        _resourceTracker = ResourceTracker;
 
-        var tracker = new ResourceTracker(
-            time: new ResourceSetting<ulong>(0, 100, 100),
-            energy: new ResourceSetting<uint>(0, 100, 100),
-            water: new ResourceSetting<uint>(0, 100, 100),
-            fertilizer: new ResourceSetting<uint>(0, 100, 100),
-            branches: new ResourceSetting<uint>(0, 100, 100));
-
-
-        tracker.ResourceValueChanged += (sender, args) =>
+        _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
@@ -40,17 +33,15 @@ public class NutrientBar : MonoBehaviour
                         // do something 
                     }
                     break;
-                case TimeResource t:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-            tracker.IncreaseEnergy(10);
-            tracker.DecreaseEnergy(5);
-
         };
 
     }
+    void Awake()
+    {
+        slider = GetComponent<Slider>();
+    }
+
 
     // Update is called once per frame
     void Update()

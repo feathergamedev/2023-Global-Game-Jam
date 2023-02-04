@@ -1,35 +1,34 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Water : MonoBehaviour
+public class CrisBar : MonoBehaviour
 {
-    public WaterResource water;
+    public FertilizerResource cris;
     public Image fillimgae;
     private Slider slider;
     private ResourceTracker _resourceTracker;
 
     public void Init(ResourceTracker ResourceTracker)
     {
-            _resourceTracker = ResourceTracker;
+        _resourceTracker = ResourceTracker;
 
-            _resourceTracker.ResourceValueChanged += (sender, args) =>
+        _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
-                case WaterResource w:
+                case FertilizerResource C:
                     // Update value to UI or somewhere
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        slider.value = w.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= w.Value;
+                        slider.value -= C.Value;
                         // do something 
                     }
                     break;
@@ -39,7 +38,7 @@ public class Water : MonoBehaviour
 
     void Awake()
     {
-        slider = GetComponent<Slider>(); 
+        slider = GetComponent<Slider>();
     }
 
     // Update is called once per frame

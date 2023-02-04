@@ -5,8 +5,37 @@ using UnityEngine.UI;
 
 public class Timeer : MonoBehaviour
 {
+    public TimeResource time;
     public float timeValue = 90;
     public Text timerText;
+    private ResourceTracker _resourceTracker;
+
+    public void Init(ResourceTracker ResourceTracker)
+    {
+        _resourceTracker = ResourceTracker;
+
+        _resourceTracker.ResourceValueChanged += (sender, args) =>
+        {
+            switch (args.NewValue)
+            {
+                case TimeResource T:
+                    // Update value to UI or somewhere
+                    // args.Value;
+                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
+                    {
+                        timeValue = T.Value;
+                        // do something 
+                    }
+                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
+                    {
+                        timeValue -= T.Value;
+                        // do something 
+                    }
+                    break;
+            }
+        };
+    }
+
 
     //Update is called once per frame
     void Update()
