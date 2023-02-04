@@ -9,29 +9,22 @@ public class Water : MonoBehaviour
     public WaterResource water;
     public Image fillimgae;
     private Slider slider;
+    private ResourceTracker _resourceTracker;
 
-    void Awake()
+    public void Init(ResourceTracker ResourceTracker)
     {
-        slider = GetComponent<Slider>();
+        _resourceTracker = ResourceTracker;
 
-        var tracker = new ResourceTracker(
-            time: new ResourceSetting<ulong>(0, 100, 100),
-            energy: new ResourceSetting<uint>(0, 100, 100),
-            water: new ResourceSetting<uint>(0, 100, 100),
-            fertilizer: new ResourceSetting<uint>(0, 100, 100),
-            branches: new ResourceSetting<uint>(0, 100, 100));
-        
-
-        tracker.ResourceValueChanged += (sender, args) =>
+        _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
                 case WaterResource w:
                     // Update value to UI or somewhere
                     // args.Value;
-                   if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
+                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        slider.value = w.Value; 
+                        slider.value = w.Value;
                         // do something 
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
@@ -40,15 +33,13 @@ public class Water : MonoBehaviour
                         // do something 
                     }
                     break;
-                case TimeResource t:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         };
+    }
 
-        tracker.IncreaseWater(10);
-        tracker.DecreaseWater(5);
+    void Awake()
+    {
+        slider = GetComponent<Slider>(); 
     }
 
     // Update is called once per frame
