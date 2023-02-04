@@ -25,17 +25,21 @@ public sealed class EncounterObject : MonoBehaviour
             switch (EncounterEventData.Type)
             {
                 case EncounterType.Water:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
                     Consume();
                     Debug.Log("Trigger Water " + EncounterEventData.EffectValue);
                     break;
                 case EncounterType.Fertilizer:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
                     Destroy(gameObject);
                     Debug.Log("Trigger Fertilizer " + EncounterEventData.EffectValue);
                     break;
                 case EncounterType.Block:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
                     Debug.Log("Trigger Block");
                     break;
                 case EncounterType.Time:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
                     Destroy(gameObject);
                     Debug.Log("Trigger Time");
                     break;

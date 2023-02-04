@@ -4,43 +4,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Water : MonoBehaviour
+public class NutrientBar : MonoBehaviour
 {
-    public WaterResource water;
+    public EnergyResource energy;
     public Image fillimgae;
     private Slider slider;
     private ResourceTracker _resourceTracker;
 
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
-            _resourceTracker = ResourceTracker;
+        _resourceTracker = ResourceTracker;
+        slider.maxValue = gameSetting.EnergyLimit;
 
-            _resourceTracker.ResourceValueChanged += (sender, args) =>
+        _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
-                case WaterResource w:
+                case EnergyResource E:
                     // Update value to UI or somewhere
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        slider.value = w.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
-                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
+                    else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value = w.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
                     break;
             }
         };
-    }
 
+    }
     void Awake()
     {
-        slider = GetComponent<Slider>(); 
+        slider = GetComponent<Slider>();
     }
+
 
     // Update is called once per frame
     void Update()

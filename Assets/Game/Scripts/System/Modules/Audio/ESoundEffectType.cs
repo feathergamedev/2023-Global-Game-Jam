@@ -7,4 +7,10 @@ public enum ESoundEffectType
     None,
 
     Success,
+
+    GrowRoot,
+
+    GetProp,
+
+    HitObstacle,
 }

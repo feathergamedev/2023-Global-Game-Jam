@@ -18,7 +18,6 @@ public class RootController : MonoBehaviour, IRootController
     public event Action OnRootCrash;
     public void StartGrow() { }
     public void StopGrow() { }
-    public async UniTask SwitchBranch() { }
 
     private PlayerState _currentPlayerState = PlayerState.SetDirection;
 
@@ -54,6 +53,12 @@ public class RootController : MonoBehaviour, IRootController
         }
     }
 
+    public async UniTask SwitchBranch()
+    {
+        //TODO : 要換分支，目前先做成直接Game Over。
+        Debug.Log("DIE!!!!!");
+    }
+
     private void StateMachine()
     {
         switch (_currentPlayerState)
@@ -84,12 +89,14 @@ public class RootController : MonoBehaviour, IRootController
 
             case PlayerState.SetScale:
                 StartCoroutine(GrowRootSequence());
+                AudioManager.Instance.PlaySFX(ESoundEffectType.GrowRoot);
                 break;
         }
     }
 
     private IEnumerator GrowRootSequence()
     {
+//        OnGrowAction?.Invoke();
         StretchRootTopTo(_nextGrowFinalNode.position);
         _currentPlayerState = PlayerState.Growing;
         _lengthIndicator.SetActive(false);

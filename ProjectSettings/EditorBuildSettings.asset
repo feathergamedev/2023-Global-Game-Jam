@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/HomeScene.unity
     guid: fbe8f42d1367f8941bf72ba58f737de5
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameScene_Old.unity
     guid: 70bd9287b555574439d13decd284167a
   - enabled: 1
     path: Assets/Scenes/CreditScene.unity
     guid: d1083192842fd4718aa4a5685196f5ac
+  - enabled: 1
+    path: Assets/Scenes/Feather/Feather.unity
+    guid: 230a8b90d1ace44ad9896a766e803486
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 8b6e4f93ee47f4e27b5596aaa7214163
   m_configObjects: {}
