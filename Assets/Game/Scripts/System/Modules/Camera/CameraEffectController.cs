@@ -8,6 +8,8 @@ public class CameraEffectController : MonoSingleton<CameraEffectController>
     [SerializeField] private Color fadeInColor;
     [SerializeField] private Color fadeOutColor;
 
+    [SerializeField] private bool DefaultUseFadeIn = true;
+
     private Texture2D texture2D;
     private GUIStyle guiStyle;
 
@@ -26,7 +28,8 @@ public class CameraEffectController : MonoSingleton<CameraEffectController>
         guiStyle = new GUIStyle();
         guiStyle.normal.background = texture2D;
 
-        StartFadeIn();
+        if (DefaultUseFadeIn)
+            StartFadeIn();
     }
 
     public void OnGUI()
