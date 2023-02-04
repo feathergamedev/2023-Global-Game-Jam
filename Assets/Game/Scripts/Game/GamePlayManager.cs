@@ -51,7 +51,7 @@ public class GamePlayManager : MonoBehaviour
             if (time > 1)
             {
                 time -= 1;
-                if (Status == GameStatus.Grow || Status == GameStatus.Crash)
+                if (Status == GameStatus.Grow)
                 {
                     _ResourceUpdatePerSecond();
                 }
@@ -90,7 +90,7 @@ public class GamePlayManager : MonoBehaviour
             }
             else if (Status == GameStatus.Crash)
             {
-                RootController.SwitchBranch();
+                await RootController.SwitchBranch();
                 Status = GameStatus.Grow;
             }
 

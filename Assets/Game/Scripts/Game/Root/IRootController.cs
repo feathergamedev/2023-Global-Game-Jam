@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,5 +12,5 @@ public interface IRootController
 
     void StartGrow();
     void StopGrow();
-    void SwitchBranch();
+    UniTask SwitchBranch();
 }
