@@ -44,9 +44,6 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
-
-        GamePlayPanel.Init(ResourceTracker, GameSetting);
-
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
 
@@ -88,6 +85,9 @@ public class GamePlayManager : MonoBehaviour
     {
         await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
+
+        GamePlayPanel.Init(ResourceTracker, GameSetting);
+
         DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
