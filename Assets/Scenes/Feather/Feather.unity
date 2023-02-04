@@ -474,6 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304587317}
   - component: {fileID: 304587318}
+  - component: {fileID: 304587319}
   m_Layer: 5
   m_Name: ???
   m_TagString: Untagged
@@ -553,6 +554,101 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &304587319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304587316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddeeb275c6401954e92ecf1d66a280aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillimgae: {fileID: 458800094}
+--- !u!1 &304872199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 304872201}
+  - component: {fileID: 304872200}
+  m_Layer: 0
+  m_Name: TempCoverSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &304872200
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304872199}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
+  m_Sprite: {fileID: 21300000, guid: 00ca8ce5cd6bc4b608d84f9373235746, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 20, y: 20}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &304872201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304872199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 387793271}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &367174582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 387793271}
   - component: {fileID: 387793270}
+  - component: {fileID: 387793272}
   m_Layer: 0
   m_Name: TreeGirl
   m_TagString: Untagged
@@ -774,10 +871,31 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 304872201}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &387793272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387793269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9d64f7f167e4b258cb358479e52ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainSprite: {fileID: 387793270}
+  _coverSprite: {fileID: 304872200}
+  tierSpriteList:
+  - {fileID: 21300000, guid: 0c5c9d3aaea634352900e812fcaba5d0, type: 3}
+  - {fileID: 21300000, guid: 9a3f0fe78ebeb470fb4338ba15f995c9, type: 3}
+  - {fileID: 21300000, guid: 66e123a63ecc8464780f09b9747ab0e6, type: 3}
+  - {fileID: 21300000, guid: 00ca8ce5cd6bc4b608d84f9373235746, type: 3}
+  badEndSprite: {fileID: 21300000, guid: 508581c8bf4304d2cb0143c5c1ab5ce2, type: 3}
 --- !u!4 &392424247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8191448865331262351, guid: 4013e6aa99d714a5192e4613ddc7996c, type: 3}
@@ -2204,13 +2322,13 @@ MonoBehaviour:
   InitialWater: 50
   InitialEnergy: 50
   InitialFertilizer: 50
-  InitialUsableBranches: 3
+  InitialUsableBranches: 1
   WaterLimit: 200
   EnergyLimit: 200
   FertilizeLimit: 200
-  ConsumeWaterPerSecond: 1
-  ConsumeFertilizerPerSecond: 1
-  ConsumeEnergyPerTime: 1
+  ConsumeWaterPerSecond: 2
+  ConsumeFertilizerPerSecond: 2
+  ConsumeEnergyPerTime: 20
   RecoverEnergyPerSecond: 1
   BonusRecoverEnergyPerSecond: 1
 --- !u!4 &1137713767
@@ -2347,6 +2465,8 @@ MonoBehaviour:
   EncounterManager: {fileID: 1639918992}
   RootController: {fileID: 1286760976}
   CameraManager: {fileID: 2002963154}
+  GamePlayPanel: {fileID: 1595508986}
+  TreeGirl: {fileID: 387793272}
   GameplayUi: {fileID: 1548627148}
   Status: 0
   EndType: 0
@@ -2589,6 +2709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1595508985}
+  - component: {fileID: 1595508986}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2611,6 +2732,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1595508986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595508984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4a52e08a808404eac2863869567bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timeer: {fileID: 2142320136}
+  Water: {fileID: 919908417}
+  NutrientBar: {fileID: 871402075}
+  CrisBar: {fileID: 304587319}
 --- !u!1 &1622774410
 GameObject:
   m_ObjectHideFlags: 0

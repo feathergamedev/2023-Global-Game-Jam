@@ -13,6 +13,7 @@ public class GamePlayManager : MonoBehaviour
     public RootController RootController;
     public CameraManager CameraManager;
     public GamePlayPanel GamePlayPanel;
+    public TreeGirl TreeGirl;
 
     [SerializeField] private CanvasGroup GameplayUi;
 
@@ -115,8 +116,16 @@ public class GamePlayManager : MonoBehaviour
 
     private async UniTask DisplayEnd()
     {
+        GamePlayPanel.HidePanel();
+        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 0f, 0.5f);
+
+
         TierComputer.Tier tier = TierComputer.Run(ResourceTracker);
-        Debug.Log($"Final tier {tier.ToString()}"); 
+        Debug.Log($"Final tier {tier.ToString()}");
+
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+        await CameraManager.ScrollToInitPos();
+        await TreeGirl.SetFinalAppearance(tier);
         await UniTask.NextFrame();
     }
     #endregion
@@ -140,7 +149,8 @@ public class GamePlayManager : MonoBehaviour
             $"Time[{ResourceTracker.Time}] " +
             $"Water[{ResourceTracker.Water}] " +
             $"Energy[{ResourceTracker.Energy}] " +
-            $"Fertilizer[{ResourceTracker.Fertilizer}]");
+            $"Fertilizer[{ResourceTracker.Fertilizer}]" +
+            $"Branch[{ResourceTracker.Branch}]");
     }
 
     private void _OnRootAction(int length)

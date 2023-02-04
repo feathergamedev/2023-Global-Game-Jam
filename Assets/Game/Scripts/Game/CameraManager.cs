@@ -37,6 +37,12 @@ public class CameraManager : MonoBehaviour
         transform.DOMoveY(transform.position.y + posYChangeAmount, 0.3f).SetEase(Ease.Linear);
     }
 
+    public async UniTask ScrollToInitPos()
+    {
+        transform.DOLocalMoveY(gameStartPosY, gameStartPosMoveTime).SetEase(gameStartMoveEaseType);
+        await UniTask.Delay(TimeSpan.FromSeconds(gameStartPosMoveTime + 0.5f));
+    }
+
     public async UniTask EnterStageCameraPerform()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1));
