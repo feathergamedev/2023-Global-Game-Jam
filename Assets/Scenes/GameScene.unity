@@ -3229,18 +3229,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23c9dc7ff7e2ed4c93414fbcdc00e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialLifeSeconds: 100
-  InitialWater: 100
-  InitialEnergy: 100
-  InitialFertilizer: 100
+  InitialLifeSeconds: 90
+  InitialWater: 70
+  InitialEnergy: 70
+  InitialFertilizer: 70
   InitialUsableBranches: 3
-  WaterLimit: 200
-  EnergyLimit: 200
-  FertilizeLimit: 200
-  ConsumeWaterPerSecond: 2
-  ConsumeFertilizerPerSecond: 2
-  ConsumeEnergyPerTime: 20
-  RecoverEnergyPerSecond: 1
+  WaterLimit: 100
+  EnergyLimit: 100
+  FertilizeLimit: 100
+  ConsumeWaterPerSecond: 1
+  ConsumeFertilizerPerSecond: 1
+  ConsumeEnergyPerTime: 10
+  RecoverEnergyPerSecond: 3
   BonusRecoverEnergyPerSecond: 1
 --- !u!4 &1137713767
 Transform:
@@ -3520,7 +3520,7 @@ MonoBehaviour:
   _lengthGrowDirection: 1
   _minlengthScale: 3
   _maxlengthScale: 8
-  _rotateSpeed: 2
+  _rotateSpeed: 180
   _lineRendererPrefab: {fileID: 7357602604042350993, guid: 8620424c632c040ffb048962e790cee5, type: 3}
   _currentLineRenderer: {fileID: 0}
   _recordPointPrefab: {fileID: 5768332819318969958, guid: a0bda3a77fe964e0f9a39c0c0540aed6, type: 3}

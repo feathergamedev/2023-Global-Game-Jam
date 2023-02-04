@@ -14,7 +14,7 @@ public enum PlayerState
 
 public class RootController : MonoBehaviour, IRootController
 {
-    public event Action<int> OnGrowAction;
+    public event Action OnGrowAction;
     public event Action OnRootCrash;
     public void StartGrow() { }
     public void StopGrow() { }
@@ -103,8 +103,9 @@ public class RootController : MonoBehaviour, IRootController
         {
             case PlayerState.SetDirection:
                 var moveDirection = Input.GetAxisRaw("Horizontal");
-                var newRotation = rootTop.transform.eulerAngles.z + (moveDirection * _rotateSpeed);
-                rootTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, newRotation));
+//                var newRotation = rootTop.transform.eulerAngles.z + (moveDirection * _rotateSpeed);
+//                rootTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, newRotation));
+                rootTop.transform.Rotate(new Vector3(0, 0, _rotateSpeed * Time.deltaTime));
                 //                rootTop.transform.SetRotationZ(moveDirection * _rotateSpeed);
                 break;
 
@@ -135,7 +136,7 @@ public class RootController : MonoBehaviour, IRootController
 
     private IEnumerator GrowRootSequence()
     {
-//        OnGrowAction?.Invoke();
+        OnGrowAction?.Invoke();
         StretchRootTopTo(_nextGrowFinalNode.position);
         _currentPlayerState = PlayerState.Growing;
         _lengthIndicator.SetActive(false);

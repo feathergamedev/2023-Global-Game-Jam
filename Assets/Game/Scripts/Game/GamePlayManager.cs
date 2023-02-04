@@ -154,7 +154,7 @@ public class GamePlayManager : MonoBehaviour
             $"Branch[{ResourceTracker.Branch}]");
     }
 
-    private void _OnRootAction(int length)
+    private void _OnRootAction()
     {
         ResourceTracker.DecreaseEnergy(GameSetting.ConsumeEnergyPerTime);
     }
