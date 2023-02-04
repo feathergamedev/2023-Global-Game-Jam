@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 539283574}
   - component: {fileID: 539283576}
   - component: {fileID: 539283575}
+  - component: {fileID: 539283577}
   m_Layer: 5
   m_Name: Life Panel
   m_TagString: Untagged
@@ -573,6 +574,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539283573}
   m_CullTransparentMesh: 1
+--- !u!114 &539283577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539283573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763c0cc5e81dbf540b091677720c8c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roots:
+  - {fileID: 1955725949}
+  - {fileID: 2083534739}
+  - {fileID: 368442862}
+  life: 3
 --- !u!1 &571801633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,7 +1520,7 @@ GameObject:
   - component: {fileID: 1779407215}
   - component: {fileID: 1779407216}
   m_Layer: 5
-  m_Name: cris
+  m_Name: Cris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1628,7 +1646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5.649995, y: 0}
+  m_AnchoredPosition: {x: 5.6500244, y: 0}
   m_SizeDelta: {x: 18.70001, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1872874237
@@ -1867,6 +1885,7 @@ GameObject:
   - component: {fileID: 2096653039}
   - component: {fileID: 2096653038}
   - component: {fileID: 2096653037}
+  - component: {fileID: 2096653040}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1957,6 +1976,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &2096653040
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096653035}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2097574681
 GameObject:
   m_ObjectHideFlags: 0
