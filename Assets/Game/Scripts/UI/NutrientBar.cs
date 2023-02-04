@@ -26,17 +26,17 @@ public class NutrientBar : MonoBehaviour
         {
             switch (args.NewValue)
             {
-                case EnergyResource w:
+                case EnergyResource E:
                     // Update value to UI or somewhere
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        slider.value = w.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
                     else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= w.Value;
+                        slider.value -= E.Value;
                         // do something 
                     }
                     break;

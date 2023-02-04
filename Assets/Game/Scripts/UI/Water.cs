@@ -48,7 +48,7 @@ public class Water : MonoBehaviour
         };
 
         tracker.IncreaseWater(10);
-        tracker.DecreaseWater(10);
+        tracker.DecreaseWater(5);
     }
 
     // Update is called once per frame
