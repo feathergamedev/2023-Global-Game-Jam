@@ -8,7 +8,8 @@ public interface IEncounterObject
     event Action<EncounterObject, EncounterEventData> OnTriggetEvent;
 
     void Init(EncounterEventData data);
-     
+    void Remove();
+    void Consume();
 }
 
 public enum EncounterType
