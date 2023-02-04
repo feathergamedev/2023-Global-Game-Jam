@@ -126,9 +126,8 @@ public class GamePlayManager : MonoBehaviour
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await CameraManager.ScrollToInitPos();
         await TreeGirl.SetFinalAppearance(tier);
-        await UniTask.NextFrame();
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("GameScene");
     }
     #endregion
 
