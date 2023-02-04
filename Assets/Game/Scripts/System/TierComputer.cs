@@ -19,9 +19,9 @@ public static class TierComputer
             tier = Tier.S;
         else if (totalScore > 240)
             tier = Tier.A;
-        else if (totalScore > 210)
+        else if (totalScore > 270)
             tier = Tier.B;
-        else if (totalScore > 150)
+        else if (totalScore > 100)
             tier = Tier.C;
         else
             tier = Tier.F;

@@ -72,7 +72,7 @@ public class RootController : MonoBehaviour, IRootController
 
     public async UniTask SwitchBranch()
     {
-        await rootTop.MoveTo(_recordPointStack.Pop().transform.position, false);
+        await rootTop.MoveTo(_recordPointStack.Peek().transform.position, false);
 
         await DeactivateCurrentLineRenderer();
 
@@ -94,6 +94,8 @@ public class RootController : MonoBehaviour, IRootController
     {
         _currentLineRenderer = Instantiate(_lineRendererPrefab, transform);
         rootTop.SetLineRenderer(_currentLineRenderer, isFirstTime);
+
+        recordCounter = 0;
         await UniTask.NextFrame();
     }
 
