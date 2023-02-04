@@ -12,6 +12,7 @@ public class GamePlayManager : MonoBehaviour
     public EncounterManager EncounterManager;
     public RootController RootController;
     public CameraManager CameraManager;
+    public GamePlayPanel GamePlayPanel;
 
     [SerializeField] private CanvasGroup GameplayUi;
 
@@ -42,6 +43,8 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
+
+        GamePlayPanel.Init(ResourceTracker);
 
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
@@ -92,6 +95,7 @@ public class GamePlayManager : MonoBehaviour
     private async UniTask GamePlayMain()
     {
         RootController.StartGrow();
+        GamePlayPanel.ShowPanel();
         while (Status != GameStatus.End)
         {
             if (Status == GameStatus.Grow)
@@ -106,6 +110,7 @@ public class GamePlayManager : MonoBehaviour
             await UniTask.NextFrame();
         }
         RootController.StopGrow();
+        GamePlayPanel.HidePanel();
     }
 
     private async UniTask DisplayEnd()

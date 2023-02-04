@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timeer : MonoBehaviour
+public class CrisBar : MonoBehaviour
 {
-    public TimeResource time;
-    public float timeValue = 90;
-    public Text timerText;
+    public FertilizerResource cris;
+    public Image fillimgae;
+    private Slider slider;
     private ResourceTracker _resourceTracker;
 
     public void Init(ResourceTracker ResourceTracker)
@@ -18,17 +18,17 @@ public class Timeer : MonoBehaviour
         {
             switch (args.NewValue)
             {
-                case TimeResource T:
+                case FertilizerResource C:
                     // Update value to UI or somewhere
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        timeValue = T.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        timeValue = T.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     break;
@@ -36,33 +36,24 @@ public class Timeer : MonoBehaviour
         };
     }
 
-
-    //Update is called once per frame
-    void Update()
+    void Awake()
     {
-        if (timeValue > 0)
-        {
-            timeValue -= Time.deltaTime;
-        }
-        else
-        {
-            timeValue = 0;
-        }
-
-        DisplayTime(timeValue);
+        slider = GetComponent<Slider>();
     }
 
-    void DisplayTime(float timeToDisplay)
+    // Update is called once per frame
+    void Update()
     {
-        if (timeToDisplay < 0)
+        if (slider.value <= slider.minValue)
         {
-            timeToDisplay = 0;
+            fillimgae.enabled = false;
         }
 
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
-        timerText.text = string.Format("{0:00}:{1:00}:", minutes, seconds);
-
+        if (slider.value > slider.maxValue && !fillimgae.enabled)
+        {
+            fillimgae.enabled = true;
+        }
+        //float fillvalue = 
+        //slider.value = fillvalue;
     }
 }

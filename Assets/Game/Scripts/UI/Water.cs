@@ -13,9 +13,9 @@ public class Water : MonoBehaviour
 
     public void Init(ResourceTracker ResourceTracker)
     {
-        _resourceTracker = ResourceTracker;
+            _resourceTracker = ResourceTracker;
 
-        _resourceTracker.ResourceValueChanged += (sender, args) =>
+            _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
@@ -29,7 +29,7 @@ public class Water : MonoBehaviour
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= w.Value;
+                        slider.value = w.Value;
                         // do something 
                     }
                     break;
