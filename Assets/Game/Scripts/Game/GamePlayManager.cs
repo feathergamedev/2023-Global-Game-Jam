@@ -101,6 +101,8 @@ public class GamePlayManager : MonoBehaviour
 
     private async UniTask DisplayEnd()
     {
+        TierComputer.Tier tier = TierComputer.Run(ResourceTracker);
+        Debug.Log($"Final tier {tier.ToString()}"); 
         await UniTask.NextFrame();
     }
     #endregion
