@@ -16,9 +16,8 @@ public class TreeGirl : MonoBehaviour
 
     public async UniTask SetFinalAppearance(TierComputer.Tier tier)
     {
-
-        await Evolve(TierComputer.Tier.S);
-        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+//        await Evolve(tier);
+        await UniTask.NextFrame();
     }
 
     private async UniTask Evolve(TierComputer.Tier tier)

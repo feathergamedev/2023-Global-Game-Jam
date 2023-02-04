@@ -14,6 +14,9 @@ public class GamePlayManager : MonoBehaviour
     public CameraManager CameraManager;
     public GamePlayPanel GamePlayPanel;
     public TreeGirl TreeGirl;
+    public GameResultMenu GameResultMenu;
+
+    public ParticleSystem EvolveParticle;
 
     [SerializeField] private CanvasGroup GameplayUi;
 
@@ -125,9 +128,17 @@ public class GamePlayManager : MonoBehaviour
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await CameraManager.ScrollToInitPos();
+        EvolveParticle.Play();
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await TreeGirl.SetFinalAppearance(tier);
 
-        SceneManager.LoadScene("GameScene");
+        await GameResultMenu.ShowMask();
+
+        EvolveParticle.Stop();
+        EvolveParticle.Clear();
+
+        await GameResultMenu.HideMask();
+        await GameResultMenu.OpenContent(tier);
     }
     #endregion
 
