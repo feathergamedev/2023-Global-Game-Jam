@@ -10,3 +10,12 @@ public enum GameStatus
     Crash,
     End
 }
+
+public enum EndType
+{
+    None = 0,
+    TimeOut,
+    WaterOut,
+    EnergyOut,
+    BranchOut,
+}

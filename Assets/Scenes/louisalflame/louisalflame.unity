@@ -1079,6 +1079,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameSetting: {fileID: 1805045071}
   EncounterManager: {fileID: 2022173092}
+  RootController: {fileID: 1925552219}
+  Status: 0
+  EndType: 0
 --- !u!4 &1372409991
 Transform:
   m_ObjectHideFlags: 0
