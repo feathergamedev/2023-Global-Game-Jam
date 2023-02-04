@@ -25,7 +25,6 @@ public sealed class EncounterManager : MonoBehaviour
     public event Action OnRootCrash;
 
     public GameObject[] ItemTemplates;
-
     public GameObject _dirt;
 
     private float _yCameraDelta;
@@ -56,7 +55,7 @@ public sealed class EncounterManager : MonoBehaviour
             
         TerrainTile CreateNewTerrainTile()
         {
-            var terrainTile = new TerrainTile(ItemTemplates, 1920, 1080);
+            var terrainTile = new TerrainTile(ItemTemplates, _dirt.transform, 1920, 1080);
             terrainTile.Enable(OnTriggerEvent);
             return terrainTile;
         }

@@ -11,7 +11,7 @@ public sealed class TerrainTile
     public int HeightPixel { get; }
     private List<TerrainObject> _objects { get; }
 
-    public TerrainTile([NotNull] GameObject[] itemTemplates, int widthPixel, int heightPixel)
+    public TerrainTile([NotNull] GameObject[] itemTemplates, Transform root, int widthPixel, int heightPixel)
     {
         if (itemTemplates == null)
         {
@@ -31,9 +31,9 @@ public sealed class TerrainTile
 
         _objects = new List<TerrainObject>
         {
-            new TerrainObject(itemTemplates[0], new Vector2(10, 10)),
-            new TerrainObject(itemTemplates[1], new Vector2(20, 20)),
-            new TerrainObject(itemTemplates[2], new Vector2(30, 30)),
+            new TerrainObject(itemTemplates[0], root, new Vector2(10, 10)),
+            new TerrainObject(itemTemplates[1], root, new Vector2(20, 20)),
+            new TerrainObject(itemTemplates[2], root, new Vector2(30, 30))
         };
 
         if (!_objects.All(o => o.Position.x <= widthPixel && o.Position.y <= heightPixel))
