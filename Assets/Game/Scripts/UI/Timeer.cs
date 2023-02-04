@@ -28,7 +28,7 @@ public class Timeer : MonoBehaviour
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        timeValue -= T.Value;
+                        timeValue = T.Value;
                         // do something 
                     }
                     break;

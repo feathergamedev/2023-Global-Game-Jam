@@ -28,7 +28,7 @@ public class CrisBar : MonoBehaviour
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= C.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     break;

@@ -29,7 +29,7 @@ public class Water : MonoBehaviour
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= w.Value;
+                        slider.value = w.Value;
                         // do something 
                     }
                     break;

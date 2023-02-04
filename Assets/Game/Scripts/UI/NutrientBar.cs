@@ -29,7 +29,7 @@ public class NutrientBar : MonoBehaviour
                     }
                     else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        slider.value -= E.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
                     break;
