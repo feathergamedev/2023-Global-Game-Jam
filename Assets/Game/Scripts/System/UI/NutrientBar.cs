@@ -14,6 +14,7 @@ public class NutrientBar : MonoBehaviour
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
         _resourceTracker = ResourceTracker;
+        slider.maxValue = gameSetting.EnergyLimit;
 
         _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
@@ -24,12 +25,12 @@ public class NutrientBar : MonoBehaviour
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        gameSetting.EnergyLimit = E.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
                     else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        gameSetting.EnergyLimit = E.Value;
+                        slider.value = E.Value;
                         // do something 
                     }
                     break;
