@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EncounterManager : MonoBehaviour
 {
+    public event Action OnRootCrash;
+
     [Serializable]
     public class EncounterObjectViewData
     {
@@ -31,16 +33,21 @@ public class EncounterManager : MonoBehaviour
         {
             case EncounterType.Water:
                 _resourceTracker.IncreaseWater(data.EffectValue);
+                encounterObject.Consume();
                 Debug.Log("Trigger Water " + data.EffectValue);
                 break;
             case EncounterType.Fertilizer:
-                _resourceTracker.IncreaseWater(data.EffectValue);
+                _resourceTracker.IncreaseFertilizer(data.EffectValue);
+                encounterObject.Remove();
                 Debug.Log("Trigger Fertilizer " + data.EffectValue);
                 break;
             case EncounterType.Block:
+                OnRootCrash?.Invoke();
                 Debug.Log("Trigger Block");
                 break;
             case EncounterType.Time:
+                _resourceTracker.IncreaseTime(data.EffectValue);
+                encounterObject.Remove();
                 Debug.Log("Trigger Time");
                 break;
         }

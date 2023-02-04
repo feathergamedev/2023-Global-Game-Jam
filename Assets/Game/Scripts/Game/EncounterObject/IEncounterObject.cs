@@ -5,9 +5,11 @@ using UnityEngine;
 
 public interface IEncounterObject
 {
-    void Init(EncounterEventData data);
-
     event Action<EncounterObject, EncounterEventData> OnTriggetEvent;
+
+    void Init(EncounterEventData data);
+    void Remove();
+    void Consume();
 }
 
 public enum EncounterType

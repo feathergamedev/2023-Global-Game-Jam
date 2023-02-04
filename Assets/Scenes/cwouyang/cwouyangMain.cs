@@ -1,4 +1,4 @@
-using System;
+    using System;
 
 using UnityEngine;
 
@@ -8,29 +8,26 @@ public sealed class cwouyangMain : MonoBehaviour
     private void Start()
     {
         var tracker = new ResourceTracker(
-            time: new ResourceSetting<ulong>(0, 100, 100), 
-            energy: new ResourceSetting<uint>(0, 100, 100), 
-            water: new ResourceSetting<uint>(0, 100, 100), 
-            fertilizer: new ResourceSetting<uint>(0, 100, 100), 
-            branches: new ResourceSetting<uint>(0, 100, 100));
-        tracker.IncreaseWater(10);
-        tracker.DecreaseWater(5);
-        
+            time: new ResourceSetting<ulong>(0, 100, 50), 
+            energy: new ResourceSetting<uint>(0, 100, 50), 
+            water: new ResourceSetting<uint>(0, 100, 50), 
+            fertilizer: new ResourceSetting<uint>(0, 100, 50), 
+            branches: new ResourceSetting<uint>(0, 100, 50));
         
         tracker.ResourceValueChanged += (sender, args) =>
         {
-            switch (args.Value)
+            switch (args.NewValue)
             {
                 case WaterResource w:
                     // Update value to UI or somewhere
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                       // do something 
+                        Debug.Log($"Water increase from {((WaterResource)(args.OldValue)).Value} to {w.Value}");
                     }
                     else if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                       // do something 
+                        Debug.Log($"Water decrease from {((WaterResource)(args.OldValue)).Value} to {w.Value}");
                     }
                     break;
                 case TimeResource t:
@@ -53,5 +50,8 @@ public sealed class cwouyangMain : MonoBehaviour
                     throw new ArgumentOutOfRangeException();
             }
         };
+        
+        tracker.IncreaseWater(10);
+        tracker.DecreaseWater(5);
     }
 }

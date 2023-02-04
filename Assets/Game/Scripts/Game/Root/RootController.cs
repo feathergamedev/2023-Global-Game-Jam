@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lapis.Extension;
+using System;
 
 public enum PlayerState
 {
@@ -12,6 +13,11 @@ public enum PlayerState
 
 public class RootController : MonoBehaviour
 {
+    public event Action<int> OnGrowAction; 
+    public event Action OnRootCrash;
+    public void StartGrow() { }
+    public void StopGrow() { }
+    public void SwitchBranch() { }
 
     private PlayerState _currentPlayerState = PlayerState.SetDirection;
 
