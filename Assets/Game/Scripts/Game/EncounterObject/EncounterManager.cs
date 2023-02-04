@@ -33,12 +33,15 @@ public class EncounterManager : MonoBehaviour
                 _resourceTracker.IncreaseWater(data.EffectValue);
                 Debug.Log("Trigger Water " + data.EffectValue);
                 break;
-            case EncounterType.Energy:
+            case EncounterType.Fertilizer:
                 _resourceTracker.IncreaseWater(data.EffectValue);
-                Debug.Log("Trigger Energy " + data.EffectValue);
+                Debug.Log("Trigger Fertilizer " + data.EffectValue);
                 break;
             case EncounterType.Block:
                 Debug.Log("Trigger Block");
+                break;
+            case EncounterType.Time:
+                Debug.Log("Trigger Time");
                 break;
         }
     }

@@ -6,14 +6,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] private Button homeButton;
-    [SerializeField] private Button creditButton;
-
     // Start is called before the first frame update
     void Start()
     {
-        homeButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Home));
-        creditButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Credit));
+//        homeButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Home));
     }
 
     // Update is called once per frame

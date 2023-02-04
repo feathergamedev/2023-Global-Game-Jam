@@ -1,14 +1,7 @@
-using System;
-
 public sealed class TimeResource : Resource
 {
     public TimeResource(ulong value)
     {
-        if (value == 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(value), "value must be positive");
-        }
-
         Value = value;
     }
 

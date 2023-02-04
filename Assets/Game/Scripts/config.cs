@@ -21,4 +21,7 @@ public static class Config
     public const string HOME_SCENE_NAME = "HomeScene";
     public const string GAME_SCENE_NAME = "GameScene";
     public const string CREDIT_SCENE_NAME = "CreditScene";
+
+    // Parameter
+    public const float ROOT_GROW_PERFORM_TIME = 0.5f;
 }

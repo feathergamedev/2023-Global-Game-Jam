@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Water : MonoBehaviour
 {
-    public WaterResource water;
+    public WaterResource water
     public Image fillimgae;
     private Slider slider;
 
