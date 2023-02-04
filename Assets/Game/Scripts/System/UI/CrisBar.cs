@@ -13,6 +13,7 @@ public class CrisBar : MonoBehaviour
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
         _resourceTracker = ResourceTracker;
+        slider.maxValue = gameSetting.FertilizeLimit;
 
         _resourceTracker.ResourceValueChanged += (sender, args) =>
         {
@@ -23,12 +24,12 @@ public class CrisBar : MonoBehaviour
                     // args.Value;
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
                     {
-                        gameSetting.FertilizeLimit = C.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
                     {
-                        gameSetting.FertilizeLimit = C.Value;
+                        slider.value = C.Value;
                         // do something 
                     }
                     break;
