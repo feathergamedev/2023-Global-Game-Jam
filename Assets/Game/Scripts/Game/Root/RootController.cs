@@ -61,8 +61,6 @@ public class RootController : MonoBehaviour, IRootController
             case PlayerState.SetDirection:
                 var moveDirection = Input.GetAxisRaw("Horizontal");
                 _lengthIndicator.transform.SetRotationZ(moveDirection * _rotateSpeed);
-
-                //                _lengthIndicator.transform.SetRotationZ(_rotateSpeed);
                 break;
 
             case PlayerState.SetScale:

@@ -9,6 +9,7 @@ public class GamePlayManager : MonoBehaviour
     public GameSetting GameSetting;
     public EncounterManager EncounterManager;
     public RootController RootController;
+    public CameraManager CameraManager;
 
     private ResourceTracker ResourceTracker;
 
@@ -76,7 +77,7 @@ public class GamePlayManager : MonoBehaviour
     #region GameStatus
     private async UniTask DisplayBegin()
     {
-        await UniTask.NextFrame();
+        await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
     }
 

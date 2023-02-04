@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Lapis.Extension;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class CameraManager : MonoBehaviour
 {
@@ -20,8 +22,6 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(EnterStagePerform());
-
         rootTop.OnPositionYChange += ChangeCameraPosY;
     }
 
@@ -31,16 +31,17 @@ public class CameraManager : MonoBehaviour
 
     }
 
+
     private void ChangeCameraPosY(float posYChangeAmount)
     {
         transform.DOMoveY(transform.position.y + posYChangeAmount, 0.3f).SetEase(Ease.Linear);
     }
 
-    private IEnumerator EnterStagePerform()
+    public async UniTask EnterStageCameraPerform()
     {
-        yield return new WaitForSeconds(1f);
+        await UniTask.Delay(TimeSpan.FromSeconds(1));
         transform.DOLocalMoveY(gameStartPosY, gameStartPosMoveTime).SetEase(gameStartMoveEaseType);
 
-        yield return new WaitForSeconds(gameStartPosMoveTime + 0.5f);
+        await UniTask.Delay(TimeSpan.FromSeconds(gameStartPosMoveTime + 0.5f));
     }
 }
