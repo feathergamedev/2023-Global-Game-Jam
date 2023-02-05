@@ -96,8 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f097bae1a4e37034499920c7384a8e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider2D: {fileID: 0}
-  SpriteRenderer: {fileID: 0}
+  Collider2D: {fileID: 7634119745196017805}
+  SpriteRenderer: {fileID: 8191448865331262350}
+  EncounterEventData:
+    Type: 2
+    EffectValue: 10
 --- !u!60 &7634119745196017805
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -108,7 +111,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
