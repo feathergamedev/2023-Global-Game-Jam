@@ -3094,14 +3094,19 @@ MonoBehaviour:
   WaterLimit: 100
   EnergyLimit: 100
   FertilizeLimit: 100
-  ConsumeWaterPerSecond: 2
-  ConsumeFertilizerPerSecond: 2
-  ConsumeEnergyPerTime: 13
+  ConsumeWaterPerSecond: 3
+  ConsumeFertilizerPerSecond: 5
+  ConsumeEnergyPerTime: 10
   RecoverEnergyPerSecond: 2
-  BonusRecoverEnergyPerSecond: 1
-  MinEventCountPerTile: 10
+  BonusRecoverEnergyPerSecond: 5
+  MinEventCountPerTile: 15
   MaxEventCountPerTile: 20
   MinDistanceEachEvent: 2
+  OriginProtectDistance: 3
+  RandomWeightWater: 10
+  RandomWeightFertilizer: 5
+  RandomWeightBlock: 3
+  RandomWeightTime: 2
 --- !u!4 &1137713767
 Transform:
   m_ObjectHideFlags: 0
