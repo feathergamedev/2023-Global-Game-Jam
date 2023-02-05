@@ -41,8 +41,7 @@ public sealed class EncounterManager : MonoBehaviour
         cameraManager.OnPositionYChanged += yChangeAmount =>
         {
             _yCameraDelta += yChangeAmount;
-
-            if (_yCameraDelta + Y_OFFSET_PER_TILE / 2 < NextTilePositionY())
+            if (_yCameraDelta + Y_OFFSET_PER_TILE < NextTilePositionY())
             {
                 _existedTiles.Add(CreateNewTerrainTile());
             }

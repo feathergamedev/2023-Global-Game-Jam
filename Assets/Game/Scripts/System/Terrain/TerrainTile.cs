@@ -24,7 +24,7 @@ public sealed class TerrainTile
         foreach (TerrainObject obj in _objects)
         {
             obj.OnCollidedEvent += onTriggerEvent;
-            obj.Instantiate();
+            obj.Initialize();
         }
     }
 }

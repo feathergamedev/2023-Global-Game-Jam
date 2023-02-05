@@ -19,5 +19,5 @@ public class TerrainObject
 
     public event Action<EncounterEventData> OnCollidedEvent;
 
-    public void Instantiate() { _encounterObject.Init(data => { OnCollidedEvent?.Invoke(data); }); }
+    public void Initialize() { _encounterObject.Init(data => { OnCollidedEvent?.Invoke(data); }); }
 }
