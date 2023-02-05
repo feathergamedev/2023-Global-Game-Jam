@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
-    public GameObject[] roots;
     public int life;
-    void Update()
+
+    [SerializeField] private List<Animator> _animators;
+
+    private void Start()
     {
-     if (life < 1)
-        {
-            Destroy(roots[0].gameObject);
-        }else if (life < 2)
-        {
-            Destroy(roots[1].gameObject);
-        }else if (life < 3)
-        {
-            Destroy(roots[3].gameObject);
-        }
+
     }
 
-    public void TakeDamage(int d)
+    public void LoseLife(int index)
     {
-        life -= d;  
+        _animators[index - 1].SetBool("IsLose", true);
     }
 }
