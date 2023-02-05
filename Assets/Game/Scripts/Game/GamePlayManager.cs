@@ -3,6 +3,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
+public enum GameOverReason
+{
+    Time = 0,
+    Water,
+    Energy,
+    Branch,
+}
+
 public class GamePlayManager : MonoBehaviour
 {
     public GameSetting GameSetting;
@@ -12,6 +20,8 @@ public class GamePlayManager : MonoBehaviour
     public GamePlayPanel GamePlayPanel;
     public TreeGirl TreeGirl;
     public GameResultMenu GameResultMenu;
+
+    private GameOverReason _gameOverReason;
 
     [SerializeField] private Life _lifeController;
 
@@ -131,7 +141,7 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGameEnd();
 
-        await CameraManager.ShowGameOverText(_loseReasonString);
+        await CameraManager.ShowGameOverText(_gameOverReason);
 
         await CameraManager.ScrollToInitPos();
         EvolveParticle.Play();
@@ -196,25 +206,27 @@ public class GamePlayManager : MonoBehaviour
                 Status = GameStatus.End;
                 EndType = EndType.TimeOut;
                 Debug.Log("Status => End : TimeOut");
-                _loseReasonString = "時間到！";
+
+                _gameOverReason = GameOverReason.Time;
                 break;
             case WaterResource water:
                 Status = GameStatus.End;
                 EndType = EndType.WaterOut;
                 Debug.Log("Status => End : WaterOut");
-                _loseReasonString = "水份乾枯！";
+
+                _gameOverReason = GameOverReason.Water;
                 break;
             case EnergyResource energy:
                 Status = GameStatus.End;
                 EndType = EndType.EnergyOut;
                 Debug.Log("Status => End : EnergyOut");
-                _loseReasonString = "能量耗盡！";
+                _gameOverReason = GameOverReason.Energy;
                 break;
             case BranchResource branch:
                 Status = GameStatus.End;
                 EndType = EndType.BranchOut;
                 Debug.Log("Status => End : BranchOut");
-                _loseReasonString = "樹根用完了！";
+                _gameOverReason = GameOverReason.Branch;
                 break;
         }
     }
