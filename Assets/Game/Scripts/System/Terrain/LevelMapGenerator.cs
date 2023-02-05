@@ -10,6 +10,12 @@ public class LevelMapGenerator : MonoBehaviour
         public Bounds Bounds;
     }
 
+    public struct EnounterObjectPos
+    {
+        public GameObject EnounterGameObject;
+        public Vector3 Position;
+    }
+
     public List<GameObject> WaterCandidates;
     public List<GameObject> FertilizerCandidates;
     public List<GameObject> BlockCandidates;
@@ -62,30 +68,36 @@ public class LevelMapGenerator : MonoBehaviour
             });
         }
 
-        _minCounts = 3;
-        _maxCounts = 4;
+        _minCounts = 6;
+        _maxCounts = 20;
     }
 
-    public void GenerateEncounterEvents(int widthPixel, int heightPixel)
+    public List<EnounterObjectPos> GenerateEncounterEvents(Transform root)
     {
+        var rootRenderer = root.GetComponent<SpriteRenderer>();
+        var rootWidth = rootRenderer.bounds.size.x;
+        var rootHeight = rootRenderer.bounds.size.y;
+        Debug.Log($"root bounds[{rootRenderer.bounds}]"); 
+
         int goalCounts = Random.Range(_minCounts, _maxCounts);
         int tryCount = 0;
         var encounterPairs = new List<EnounterBoundPair>();
+        var encounterPositions = new List<EnounterObjectPos>();
 
         while (encounterPairs.Count < goalCounts && tryCount < TRY_LIMIT)
         {
             tryCount++;
 
             var encounterTargetPair = _SelectRandomEncounter();
-            var newPoint = new Vector2(Random.value * widthPixel, Random.value * heightPixel);
+            var newPoint = new Vector2(Random.value * rootWidth, Random.value * rootHeight);
             Debug.Log($"try newpoint[{newPoint}]");
 
             var isClosed = false;
             for (var k = 0; k < encounterPairs.Count; k++)
             {
-                var prevPair= encounterPairs[k];
+                var prevPair = encounterPairs[k];
                 if (prevPair.Bounds.Contains(newPoint))
-                { 
+                {
                     Debug.Log($"check prevBounds[{prevPair.Bounds}] HIT");
                     isClosed = true;
                     break;
@@ -102,6 +114,25 @@ public class LevelMapGenerator : MonoBehaviour
                 Bounds = newBound
             });
         }
+
+        var basicPos = transform.position;
+        Debug.Log($"root basicPos[{basicPos}]");
+        foreach (var pair in encounterPairs)
+        {
+            var pos = basicPos + pair.Bounds.center;
+            pos.x += -rootWidth / 2;
+            pos.y += -rootHeight / 2;
+            Debug.Log($"set go to pos [{pos}]");
+            var go = Instantiate(pair.EnounterGameObject, root);
+            go.transform.position = pos;
+
+            encounterPositions.Add(new EnounterObjectPos {
+                EnounterGameObject = go,
+                Position = pos
+            });
+        }
+
+        return encounterPositions;
     }
 
     private EnounterBoundPair _SelectRandomEncounter()
