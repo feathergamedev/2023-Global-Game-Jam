@@ -77,7 +77,7 @@ public class LevelMapGenerator : MonoBehaviour
         var rootRenderer = root.GetComponent<SpriteRenderer>();
         var rootWidth = rootRenderer.bounds.size.x;
         var rootHeight = rootRenderer.bounds.size.y;
-        Debug.Log($"root bounds[{rootRenderer.bounds}]"); 
+        Debug.Log($"root bounds[{rootRenderer.bounds}]  rootWidth[{rootWidth}]  rootHeight[{rootHeight}]"); 
 
         int goalCounts = Random.Range(_minCounts, _maxCounts);
         int tryCount = 0;
@@ -119,12 +119,13 @@ public class LevelMapGenerator : MonoBehaviour
         Debug.Log($"root basicPos[{basicPos}]");
         foreach (var pair in encounterPairs)
         {
-            var pos = basicPos + pair.Bounds.center;
-            pos.x += -rootWidth / 2;
-            pos.y += -rootHeight / 2;
+            var pos = pair.Bounds.center;
+            Debug.Log($"basic pos [{pos}]");
+            pos.x += -rootWidth/2;
+            pos.y += -rootHeight/2;
             Debug.Log($"set go to pos [{pos}]");
             var go = Instantiate(pair.EnounterGameObject, root);
-            go.transform.position = pos;
+            go.transform.localPosition = pos;
 
             encounterPositions.Add(new EnounterObjectPos {
                 EnounterGameObject = go,
