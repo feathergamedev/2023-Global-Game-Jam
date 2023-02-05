@@ -47,9 +47,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
         _DetectForceEndGameForDemo();
-#endif
     }
 
     public async void Play()
@@ -216,6 +214,9 @@ public class GamePlayManager : MonoBehaviour
 
     private void _DetectForceEndGameForDemo()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneTransitionManager.Instance.SwitchScene(SceneType.Home);
+
         if (Status == GameStatus.Grow)
         {
             if (Input.GetKeyDown(KeyCode.Y))

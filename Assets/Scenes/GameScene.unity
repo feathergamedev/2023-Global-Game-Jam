@@ -1344,7 +1344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 508, y: 318.99994}
+  m_AnchoredPosition: {x: 508, y: 146}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &566110860
@@ -2652,7 +2652,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987045229}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3198,10 +3198,10 @@ MonoBehaviour:
   MaxEventCountPerTile: 20
   MinDistanceEachEvent: 2
   OriginProtectDistance: 3
-  RandomWeightWater: 10
-  RandomWeightFertilizer: 6
-  RandomWeightBlock: 4
-  RandomWeightTime: 1
+  RandomWeightWater: 6
+  RandomWeightFertilizer: 7
+  RandomWeightBlock: 6
+  RandomWeightTime: 2
 --- !u!4 &1137713767
 Transform:
   m_ObjectHideFlags: 0
@@ -4523,7 +4523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1587441701
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10114,7 +10114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1820815161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10509,7 +10509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 508, y: 103}
+  m_AnchoredPosition: {x: 508, y: -69.999954}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973517479

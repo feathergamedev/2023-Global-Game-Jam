@@ -21,6 +21,8 @@ public class GameResultMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //在WebGL有BUG，按了沒反應，先不使用
+        /*
         _homeButton.onClick.AddListener(() =>
         {
             SceneTransitionManager.Instance.SwitchScene(SceneType.Home);
@@ -31,6 +33,7 @@ public class GameResultMenu : MonoBehaviour
             SceneTransitionManager.Instance.SwitchScene(SceneType.Game);
             AudioManager.Instance.PlaySFX(ESoundEffectType.Click);
         });
+        */
 
         _contentGroup.alpha = 0f;
         _maskGroup.alpha = 0f;
@@ -61,6 +64,8 @@ public class GameResultMenu : MonoBehaviour
         _rankTierText.text = tier.ToString();
 
         DOTween.To(() => _contentGroup.alpha, x => _contentGroup.alpha = x, 1f, 1f);
-        await UniTask.NextFrame();
+        await UniTask.Delay(System.TimeSpan.FromSeconds(3f));
+
+        SceneTransitionManager.Instance.SwitchScene(SceneType.Home);
     }
 }
