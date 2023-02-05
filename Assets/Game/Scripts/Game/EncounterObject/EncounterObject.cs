@@ -30,13 +30,13 @@ public sealed class EncounterObject : MonoBehaviour
                     Debug.Log("Trigger Water " + EncounterEventData.EffectValue);
                     break;
                 case EncounterType.Fertilizer:
-				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
                     Destroy(gameObject);
                     Debug.Log("Trigger Fertilizer " + EncounterEventData.EffectValue);
+                    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
                     break;
                 case EncounterType.Block:
-				    AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
                     Debug.Log("Trigger Block");
+                    AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
                     break;
                 case EncounterType.Time:
 				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);

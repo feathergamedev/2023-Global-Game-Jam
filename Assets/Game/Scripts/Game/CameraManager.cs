@@ -17,6 +17,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float gameStartPosMoveTime;
     [SerializeField] private Ease  gameStartMoveEaseType;
 
+    [SerializeField] private float backToInitPosMoveTime;
+    [SerializeField] private Ease backToInitPosMoveEaseType;
+
     [SerializeField] private RootTop rootTop;
 
     private float distanceBuffer;
@@ -44,8 +47,8 @@ public class CameraManager : MonoBehaviour
 
     public async UniTask ScrollToInitPos()
     {
-        transform.DOLocalMoveY(gameStartPosY, gameStartPosMoveTime).SetEase(gameStartMoveEaseType);
-        await UniTask.Delay(TimeSpan.FromSeconds(gameStartPosMoveTime + 0.5f));
+        transform.DOLocalMoveY(gameStartPosY, backToInitPosMoveTime).SetEase(backToInitPosMoveEaseType);
+        await UniTask.Delay(TimeSpan.FromSeconds(backToInitPosMoveTime + 0.5f));
     }
 
     public async UniTask EnterStageCameraPerform()
