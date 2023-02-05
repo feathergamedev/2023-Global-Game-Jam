@@ -18,7 +18,7 @@ public sealed class EncounterObject : MonoBehaviour
         }
         
         HandleCollided();
-        _OnCollidedEventHandler?.Invoke(this, EncounterEventData);
+        _OnCollidedEventHandler?.Invoke(EncounterEventData);
 
         void HandleCollided()
         {
@@ -57,9 +57,9 @@ public sealed class EncounterObject : MonoBehaviour
         }
     }
 
-    private event Action<EncounterObject, EncounterEventData> _OnCollidedEventHandler;
+    private event Action<EncounterEventData> _OnCollidedEventHandler;
 
-    public void Init(Action<EncounterObject, EncounterEventData> collidedEventHandler = null)
+    public void Init(Action<EncounterEventData> collidedEventHandler = null)
     {
         _OnCollidedEventHandler = collidedEventHandler;
         _enable = true;

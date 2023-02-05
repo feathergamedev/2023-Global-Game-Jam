@@ -23,12 +23,12 @@ public class TerrainObject
             throw new ArgumentNullException(nameof(root));
         }
 
-        if (position.x < 0)
+        if (position.x < 0 || position.x > 1)
         {
             throw new ArgumentOutOfRangeException(nameof(position), "X position is invalid");
         }
 
-        if (position.y < 0)
+        if (position.y < 0 || position.y > 1)
         {
             throw new ArgumentOutOfRangeException(nameof(position), "Y Position is invalid");
         }
@@ -43,10 +43,9 @@ public class TerrainObject
 
     public void Instantiate()
     {
-        GameObject obj = Object.Instantiate(_prefab, new Vector3(Position.x, Position.y), new Quaternion());
-        obj.transform.parent = _root;
+        GameObject obj = Object.Instantiate(_prefab, _root, true);
 
         var component = obj.GetComponent<EncounterObject>();
-        component.Init((_, data) => { OnCollidedEvent?.Invoke(data); });
+        component.Init(data => { OnCollidedEvent?.Invoke(data); });
     }
 }

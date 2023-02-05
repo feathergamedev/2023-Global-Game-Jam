@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider2D: {fileID: 8191448865331262345}
-  SpriteRenderer: {fileID: 0}
+  SpriteRenderer: {fileID: 8191448865331262350}
   EncounterEventData:
     Type: 2
     EffectValue: 5
