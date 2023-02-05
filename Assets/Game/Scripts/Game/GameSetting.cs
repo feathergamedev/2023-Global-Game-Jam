@@ -24,6 +24,12 @@ public class GameSetting : MonoBehaviour
     public int MinEventCountPerTile;
     public int MaxEventCountPerTile;
     public float MinDistanceEachEvent;
+    public float OriginProtectDistance;
+
+    public int RandomWeightWater;
+    public int RandomWeightFertilizer;
+    public int RandomWeightBlock;
+    public int RandomWeightTime;
 }
 
 

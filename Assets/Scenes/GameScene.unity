@@ -3031,7 +3031,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 9b4adad315d394a22822ebc38fbe2956, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aaa3b2a3e77d042d7b1bae48202d5a7c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3086,7 +3086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23c9dc7ff7e2ed4c93414fbcdc00e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialLifeSeconds: 30
+  InitialLifeSeconds: 90
   InitialWater: 70
   InitialEnergy: 70
   InitialFertilizer: 70
@@ -3094,14 +3094,19 @@ MonoBehaviour:
   WaterLimit: 100
   EnergyLimit: 100
   FertilizeLimit: 100
-  ConsumeWaterPerSecond: 2
-  ConsumeFertilizerPerSecond: 2
-  ConsumeEnergyPerTime: 8
+  ConsumeWaterPerSecond: 3
+  ConsumeFertilizerPerSecond: 5
+  ConsumeEnergyPerTime: 10
   RecoverEnergyPerSecond: 2
-  BonusRecoverEnergyPerSecond: 3
-  MinEventCountPerTile: 10
+  BonusRecoverEnergyPerSecond: 5
+  MinEventCountPerTile: 15
   MaxEventCountPerTile: 20
   MinDistanceEachEvent: 2
+  OriginProtectDistance: 3
+  RandomWeightWater: 10
+  RandomWeightFertilizer: 5
+  RandomWeightBlock: 3
+  RandomWeightTime: 2
 --- !u!4 &1137713767
 Transform:
   m_ObjectHideFlags: 0
@@ -3228,7 +3233,6 @@ MonoBehaviour:
   EvolveParticle: {fileID: 1667201893}
   levelMapGenerator: {fileID: 1356845373}
   GameplayUi: {fileID: 1422912697}
-  _bgm: {fileID: 991624398}
   Status: 0
   EndType: 0
 --- !u!4 &1251606201
@@ -3726,6 +3730,8 @@ MonoBehaviour:
   BlockCandidates:
   - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
   - {fileID: 8908539881407019948, guid: 6c3e8d98ed74ab24dabb848ea51d823a, type: 3}
+  TimeCandidates:
+  - {fileID: 58330258482327511, guid: 8027d2e2c681e5d40954e6aeeb232d5c, type: 3}
 --- !u!224 &1399649748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 655425186183055561, guid: 816d47cd4f39d47c99c46dc2448d0a3d, type: 3}
@@ -9459,9 +9465,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1f62559de02d6431ba05b2bb559e1c7c, type: 3}
-  m_Color: {r: 0.54509807, g: 0.627451, b: 0.56078434, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -9480,7 +9486,7 @@ Transform:
   m_GameObject: {fileID: 1670857821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_Children:
   - {fileID: 678335377}
   m_Father: {fileID: 1134756085}
@@ -10364,7 +10370,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
