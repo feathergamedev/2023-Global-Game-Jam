@@ -18,7 +18,6 @@ public class GamePlayManager : MonoBehaviour
     public ParticleSystem EvolveParticle;
     public LevelMapGenerator levelMapGenerator; 
 
-    [SerializeField] private CanvasGroup GameplayUi;
     [SerializeField] private AudioSource _bgm;
 
     private ResourceTracker ResourceTracker;
@@ -27,8 +26,7 @@ public class GamePlayManager : MonoBehaviour
     public EndType EndType;
 
     async void Start()
-    {
-        GameplayUi.alpha = 0;
+    { 
         Play();
     }
 
@@ -50,6 +48,7 @@ public class GamePlayManager : MonoBehaviour
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
 
+        GamePlayPanel.Init(ResourceTracker, GameSetting);
 
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
@@ -93,17 +92,13 @@ public class GamePlayManager : MonoBehaviour
         await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
 
-        GamePlayPanel.Init(ResourceTracker, GameSetting);
-
-        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
-
+        GamePlayPanel.ShowPanel();
         await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
     }
 
     private async UniTask GamePlayMain()
     {
         RootController.StartGrow();
-        GamePlayPanel.ShowPanel();
         while (Status != GameStatus.End)
         {
             if (Status == GameStatus.Grow)
@@ -119,14 +114,11 @@ public class GamePlayManager : MonoBehaviour
             await UniTask.NextFrame();
         }
         RootController.StopGrow();
-        GamePlayPanel.HidePanel();
     }
 
     private async UniTask DisplayEnd()
     {
         GamePlayPanel.HidePanel();
-        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 0f, 0.5f);
-
 
         TierComputer.Tier tier = TierComputer.Run(ResourceTracker);
         Debug.Log($"Final tier {tier.ToString()}");
