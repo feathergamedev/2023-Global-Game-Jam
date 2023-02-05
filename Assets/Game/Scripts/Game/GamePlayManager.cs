@@ -13,6 +13,8 @@ public class GamePlayManager : MonoBehaviour
     public TreeGirl TreeGirl;
     public GameResultMenu GameResultMenu;
 
+    [SerializeField] private Life _lifeController;
+
     public ParticleSystem EvolveParticle;
     public LevelMapGenerator levelMapGenerator; 
 
@@ -108,6 +110,7 @@ public class GamePlayManager : MonoBehaviour
             }
             else if (Status == GameStatus.Crash)
             {
+                _lifeController.LoseLife((int)ResourceTracker.Branch);
                 await RootController.SwitchBranch();
                 Status = GameStatus.Grow;
             }

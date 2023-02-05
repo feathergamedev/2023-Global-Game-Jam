@@ -36,13 +36,13 @@ public class GameResultMenu : MonoBehaviour
 
     public async UniTask ShowMask()
     {
-        DOTween.To(() => _maskGroup.alpha, x => _maskGroup.alpha = x, 1f, 3f);
-        await UniTask.Delay(System.TimeSpan.FromSeconds(3f));
+        DOTween.To(() => _maskGroup.alpha, x => _maskGroup.alpha = x, 1f, 2f);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(2f));
     }
 
     public async UniTask HideMask()
     {
-        DOTween.To(() => _maskGroup.alpha, x => _maskGroup.alpha = x, 0f, 3f);
+        DOTween.To(() => _maskGroup.alpha, x => _maskGroup.alpha = x, 0f, 2f);
         await UniTask.NextFrame();
     }
 
