@@ -19,10 +19,12 @@ public class LevelMapGenerator : MonoBehaviour
     public List<GameObject> WaterCandidates;
     public List<GameObject> FertilizerCandidates;
     public List<GameObject> BlockCandidates;
+    public List<GameObject> TimeCandidates;
     private List<EncounterType> EncounterTypeList = new List<EncounterType> {
         EncounterType.Water,
         EncounterType.Fertilizer,
-        EncounterType.Block
+        EncounterType.Block,
+        EncounterType.Time
     };
 
     private Dictionary<EncounterType, List<EnounterBoundPair>> EncounterBoundTable = new Dictionary<EncounterType, List<EnounterBoundPair>>();
@@ -68,6 +70,18 @@ public class LevelMapGenerator : MonoBehaviour
                 Bounds = new Bounds(Vector3.zero, bounds.size)
             });
         }
+
+        EncounterBoundTable[EncounterType.Time] = new List<EnounterBoundPair>();
+        foreach (var timeObject in TimeCandidates)
+        {
+            var bounds = timeObject.GetComponent<SpriteRenderer>().bounds;
+            Debug.Log($"EncounterType.Block bounds[{bounds}]");
+            EncounterBoundTable[EncounterType.Time].Add(new EnounterBoundPair
+            {
+                EnounterGameObject = timeObject,
+                Bounds = new Bounds(Vector3.zero, bounds.size)
+            });
+        }
     }
 
     public List<EnounterObjectPos> GenerateEncounterEvents(Transform root)
@@ -87,7 +101,7 @@ public class LevelMapGenerator : MonoBehaviour
         {
             tryCount++;
 
-            var encounterTargetPair = _SelectRandomEncounter();
+            var (type, encounterTargetPair) = _SelectRandomEncounter();
             var newPoint = new Vector2(Random.value * rootWidth, Random.value * rootHeight);
             var newBound = new Bounds(newPoint, encounterTargetPair.Bounds.size);
             Debug.Log($"add newPoint[{newPoint}]newBound[{newBound}]");
@@ -134,7 +148,7 @@ public class LevelMapGenerator : MonoBehaviour
             pos.y += -rootHeight/2;
             Debug.Log($"set go to pos [{pos}]");
             var go = Instantiate(bound.Item1, root);
-            go.transform.localPosition = pos;
+            go.transform.localPosition = pos; 
 
             encounterPositions.Add(new EnounterObjectPos {
                 EnounterGameObject = go,
@@ -145,7 +159,7 @@ public class LevelMapGenerator : MonoBehaviour
         return encounterPositions;
     }
 
-    private EnounterBoundPair _SelectRandomEncounter()
+    private (EncounterType, EnounterBoundPair) _SelectRandomEncounter()
     {
         var randTypeNum = Random.Range(0, EncounterTypeList.Count);
         Debug.Log($"randTypeNum[{randTypeNum}]");
@@ -156,6 +170,6 @@ public class LevelMapGenerator : MonoBehaviour
         Debug.Log($"candidateList[{candidateList.Count}]");
         var randPairNum = Random.Range(0, candidateList.Count);
         var randPair = candidateList[randPairNum];
-        return randPair;
+        return (randType, randPair);
     }
 }

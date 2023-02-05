@@ -3725,6 +3725,8 @@ MonoBehaviour:
   BlockCandidates:
   - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
   - {fileID: 8908539881407019948, guid: 6c3e8d98ed74ab24dabb848ea51d823a, type: 3}
+  TimeCandidates:
+  - {fileID: 58330258482327511, guid: 8027d2e2c681e5d40954e6aeeb232d5c, type: 3}
 --- !u!224 &1399649748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 655425186183055561, guid: 816d47cd4f39d47c99c46dc2448d0a3d, type: 3}
@@ -4276,7 +4278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bf35b7d951a9f4193516b65c2a99b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeValue: 30
   timerText: {fileID: 27588670}
 --- !u!1 &1587441700
 GameObject:
