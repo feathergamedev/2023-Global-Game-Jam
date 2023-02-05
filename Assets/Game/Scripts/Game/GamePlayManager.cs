@@ -1,8 +1,5 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +16,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private Life _lifeController;
 
     public ParticleSystem EvolveParticle;
+    public LevelMapGenerator levelMapGenerator; 
 
     [SerializeField] private CanvasGroup GameplayUi;
 
@@ -44,11 +42,14 @@ public class GamePlayManager : MonoBehaviour
 
         ResourceTracker.ResourceExhausted += _OnResourceExhausted;
 
-        EncounterManager.PrepareAll(ResourceTracker);
+        levelMapGenerator.Init(GameSetting);
+        EncounterManager.PrepareAll(ResourceTracker, CameraManager, levelMapGenerator);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
+
+
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
 

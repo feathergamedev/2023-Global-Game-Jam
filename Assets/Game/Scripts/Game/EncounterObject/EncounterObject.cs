@@ -1,62 +1,67 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class EncounterObject : MonoBehaviour, IEncounterObject
+public sealed class EncounterObject : MonoBehaviour
 {
-    public event Action<EncounterObject, EncounterEventData> OnTriggetEvent;
-
     public Collider2D Collider2D;
     public SpriteRenderer SpriteRenderer;
+    public EncounterEventData EncounterEventData;
 
-    private EncounterEventData _data;
-    private bool _enable = false; 
-
-    public void Init(EncounterEventData data)
-    {
-        OnTriggetEvent = null;
-        _data = data;
-        _enable = true;
-    }
+    private bool _enable;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (_data.Type == EncounterType.Block)
+        if (!_enable)
         {
-            AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
+            return;
         }
-        else
+        
+        HandleCollided();
+        _OnCollidedEventHandler?.Invoke(EncounterEventData);
+
+        void HandleCollided()
         {
-            if(_data.Type == EncounterType.Water)
+            switch (EncounterEventData.Type)
             {
-
+                case EncounterType.Water:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
+                    Consume();
+                    Debug.Log("Trigger Water " + EncounterEventData.EffectValue);
+                    break;
+                case EncounterType.Fertilizer:
+                    Destroy(gameObject);
+                    Debug.Log("Trigger Fertilizer " + EncounterEventData.EffectValue);
+                    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
+                    break;
+                case EncounterType.Block:
+                    Debug.Log("Trigger Block");
+                    AudioManager.Instance.PlaySFX(ESoundEffectType.HitObstacle);
+                    break;
+                case EncounterType.Time:
+				    AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
+                    Destroy(gameObject);
+                    Debug.Log("Trigger Time");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            else if (_data.Type == EncounterType.Fertilizer)
-            {
-
-            }
-
-            AudioManager.Instance.PlaySFX(ESoundEffectType.GetProp);
         }
 
-        if (_enable)
+        void Consume()
         {
-            OnTriggetEvent?.Invoke(this, _data);
+            _enable = false;
+            Color color = SpriteRenderer.color;
+            color.a = 0.3f;
+            SpriteRenderer.color = color;
         }
     }
 
-    public void Remove()
-    {
-        _enable = false;
-        Destroy(this.gameObject);
-    }
+    private event Action<EncounterEventData> _OnCollidedEventHandler;
 
-    public void Consume()
+    public void Init(Action<EncounterEventData> collidedEventHandler = null)
     {
-        _enable = false;
-        var color = SpriteRenderer.color;
-        color.a = 0.3f;
-        SpriteRenderer.color = color;
+        _OnCollidedEventHandler = collidedEventHandler;
+        _enable = true;
     }
 }

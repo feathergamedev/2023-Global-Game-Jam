@@ -1,55 +1,95 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class EncounterManager : MonoBehaviour
+public enum EncounterType
 {
+    None,
+    Water,
+    Fertilizer,
+    Block,
+    Time
+}
+
+[Serializable]
+public class EncounterEventData
+{
+    public EncounterType Type;
+    public uint EffectValue;
+}
+
+public sealed class EncounterManager : MonoBehaviour
+{
+    public GameObject[] ItemTemplates;
+    [SerializeField] private GameObject _tilesRoot;
+    [SerializeField] private GameObject _dirtTilePrefab;
+    private readonly List<TerrainTile> _existedTiles = new List<TerrainTile>();
+
+    private ResourceTracker _resourceTracker;
+
+    private float _yCameraDelta;
     public event Action OnRootCrash;
+
+    public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager, LevelMapGenerator levelMapGenerator)
+    {
+        _resourceTracker = resourceTracker;
+
+        const float INITIAL_Y_OFFSET = -6.56f;
+        const float Y_OFFSET_PER_TILE = -10.8f;
+        _existedTiles.Add(CreateNewTerrainTile());
+        cameraManager.OnPositionYChanged += yChangeAmount =>
+        {
+            _yCameraDelta += yChangeAmount;
+            if (_yCameraDelta + Y_OFFSET_PER_TILE < NextTilePositionY())
+            {
+                _existedTiles.Add(CreateNewTerrainTile());
+            }
+        };
+
+        TerrainTile CreateNewTerrainTile()
+        {
+            var terrainTile = new TerrainTile
+            (
+                _tilesRoot.transform, _dirtTilePrefab, NextTilePositionY(),
+                levelMapGenerator
+            );
+            terrainTile.Enable(OnTriggerEvent);
+            return terrainTile;
+        }
+
+        float NextTilePositionY()
+        {
+            float value = INITIAL_Y_OFFSET + _existedTiles.Count * Y_OFFSET_PER_TILE;
+            return value;
+        }
+
+        void OnTriggerEvent(EncounterEventData data)
+        {
+            switch (data.Type)
+            {
+                case EncounterType.Water:
+                    _resourceTracker.IncreaseWater(data.EffectValue);
+                    break;
+                case EncounterType.Fertilizer:
+                    _resourceTracker.IncreaseFertilizer(data.EffectValue);
+                    break;
+                case EncounterType.Block:
+                    OnRootCrash?.Invoke();
+                    break;
+                case EncounterType.Time:
+                    _resourceTracker.IncreaseTime(data.EffectValue);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
 
     [Serializable]
     public class EncounterObjectViewData
     {
         public EncounterObject Object;
         public EncounterEventData Data;
-    }
-    
-    public List<EncounterObjectViewData> ViewDatas;
-    private ResourceTracker _resourceTracker;
-
-    public void PrepareAll(ResourceTracker resourceTracker)
-    {
-        _resourceTracker = resourceTracker;
-        foreach (var viewData in ViewDatas)
-        {
-            viewData.Object.Init(viewData.Data);
-            viewData.Object.OnTriggetEvent += _OnTriggerEvent;
-        }
-    }
-
-    private void _OnTriggerEvent(EncounterObject encounterObject, EncounterEventData data)
-    {
-        switch (data.Type)
-        {
-            case EncounterType.Water:
-                _resourceTracker.IncreaseWater(data.EffectValue);
-                encounterObject.Consume();
-                Debug.Log("Trigger Water " + data.EffectValue);
-                break;
-            case EncounterType.Fertilizer:
-                _resourceTracker.IncreaseFertilizer(data.EffectValue);
-                encounterObject.Remove();
-                Debug.Log("Trigger Fertilizer " + data.EffectValue);
-                break;
-            case EncounterType.Block:
-                OnRootCrash?.Invoke();
-                Debug.Log("Trigger Block");
-                break;
-            case EncounterType.Time:
-                _resourceTracker.IncreaseTime(data.EffectValue);
-                encounterObject.Remove();
-                Debug.Log("Trigger Time");
-                break;
-        }
     }
 }
