@@ -17,7 +17,6 @@ public class GamePlayManager : MonoBehaviour
     public LevelMapGenerator levelMapGenerator; 
 
     [SerializeField] private CanvasGroup GameplayUi;
-    [SerializeField] private LevelMapGenerator _levelMapGenerator;
 
     private ResourceTracker ResourceTracker;
 
@@ -41,13 +40,13 @@ public class GamePlayManager : MonoBehaviour
 
         ResourceTracker.ResourceExhausted += _OnResourceExhausted;
 
-        EncounterManager.PrepareAll(ResourceTracker, CameraManager, _levelMapGenerator);
+        levelMapGenerator.Init(GameSetting);
+        EncounterManager.PrepareAll(ResourceTracker, CameraManager, levelMapGenerator);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
 
-        levelMapGenerator.Init(GameSetting);
 
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }

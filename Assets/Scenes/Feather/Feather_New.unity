@@ -1298,9 +1298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506e82e1d887ea445a90420d625e3248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterCandidates: []
-  FertilizerCandidates: []
-  BlockCandidates: []
+  WaterCandidates:
+  - {fileID: 3077474334861663836, guid: fc99112f39df34818a86612139554c20, type: 3}
+  FertilizerCandidates:
+  - {fileID: 8191448865331262347, guid: 4013e6aa99d714a5192e4613ddc7996c, type: 3}
+  BlockCandidates:
+  - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
 --- !u!1 &609221587
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,8 +3239,8 @@ MonoBehaviour:
   TreeGirl: {fileID: 387793272}
   GameResultMenu: {fileID: 160797672}
   EvolveParticle: {fileID: 1667201893}
+  levelMapGenerator: {fileID: 600732877}
   GameplayUi: {fileID: 1422912697}
-  _levelMapGenerator: {fileID: 600732877}
   Status: 0
   EndType: 0
 --- !u!4 &1251606201
@@ -4297,7 +4300,8 @@ MonoBehaviour:
   - {fileID: 8191448865331262347, guid: 4013e6aa99d714a5192e4613ddc7996c, type: 3}
   - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
   - {fileID: 3077474334861663836, guid: fc99112f39df34818a86612139554c20, type: 3}
-  _dirt: {fileID: 3367728491577065464, guid: 3be6d6177c84d4f22a87bcea864d1cd5, type: 3}
+  _tilesRoot: {fileID: 600732875}
+  _dirtTilePrefab: {fileID: 3367728491577065464, guid: 3be6d6177c84d4f22a87bcea864d1cd5, type: 3}
 --- !u!4 &1639918993
 Transform:
   m_ObjectHideFlags: 0
@@ -10291,6 +10295,10 @@ PrefabInstance:
     - target: {fileID: 3367728491577065464, guid: 3be6d6177c84d4f22a87bcea864d1cd5, type: 3}
       propertyPath: m_Name
       value: Tile_dirt
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367728491577065464, guid: 3be6d6177c84d4f22a87bcea864d1cd5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be6d6177c84d4f22a87bcea864d1cd5, type: 3}

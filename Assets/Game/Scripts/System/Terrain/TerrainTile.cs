@@ -2,45 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using JetBrains.Annotations;
-
 using UnityEngine;
+
+using Object = UnityEngine.Object;
 
 public sealed class TerrainTile
 {
-    public TerrainTile([NotNull] GameObject[] itemTemplates, Transform root, int widthPixel, int heightPixel)
+    public TerrainTile
+        (Transform root, GameObject dirtTilePrefab, float yOffset, LevelMapGenerator levelMapGenerator)
     {
-        if (itemTemplates == null)
-        {
-            throw new ArgumentNullException(nameof(itemTemplates));
-        }
-
-        if (widthPixel <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(widthPixel));
-        }
-
-        if (heightPixel <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(heightPixel));
-        }
-
-        HeightPixel = heightPixel;
-
-        _objects = new List<TerrainObject>
-        {
-            new TerrainObject(itemTemplates[0], root, new Vector2(0.1f, 0.1f)),
-            new TerrainObject(itemTemplates[1], root, new Vector2(0.2f, 0.2f)),
-            new TerrainObject(itemTemplates[2], root, new Vector2(0.3f, 0.3f))
-        };
-
-        if (!_objects.All(o => o.Position.x <= widthPixel && o.Position.y <= heightPixel))
-        {
-            throw new ArgumentException($"Some of {nameof(TerrainObject)} resided in wrong position");
-        }
+        GameObject newTile = Object.Instantiate(dirtTilePrefab, root);
+        newTile.transform.position = new Vector2(newTile.transform.position.x, yOffset);
+        List<LevelMapGenerator.EnounterObjectPos> newObjs = levelMapGenerator.GenerateEncounterEvents(newTile.transform);
+        _objects = newObjs.Select(o => new TerrainObject(o.EnounterGameObject)).ToList();
     }
 
-    public int HeightPixel { get; }
     private List<TerrainObject> _objects { get; }
 
     public void Enable(Action<EncounterEventData> onTriggerEvent)

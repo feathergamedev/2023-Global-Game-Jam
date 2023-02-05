@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
 
 public enum EncounterType
 {
-    None, 
+    None,
     Water,
     Fertilizer,
     Block,
@@ -22,44 +21,50 @@ public class EncounterEventData
 
 public sealed class EncounterManager : MonoBehaviour
 {
-    public event Action OnRootCrash;
-
     public GameObject[] ItemTemplates;
-    public GameObject _dirt;
+    [SerializeField] private GameObject _tilesRoot;
+    [SerializeField] private GameObject _dirtTilePrefab;
+    private readonly List<TerrainTile> _existedTiles = new List<TerrainTile>();
+
+    private ResourceTracker _resourceTracker;
 
     private float _yCameraDelta;
-    private List<TerrainTile> _existedTiles = new List<TerrainTile>();
-
-    [Serializable]
-    public class EncounterObjectViewData
-    {
-        public EncounterObject Object;
-        public EncounterEventData Data;
-    }
-    
-    private ResourceTracker _resourceTracker;
+    public event Action OnRootCrash;
 
     public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager, LevelMapGenerator levelMapGenerator)
     {
         _resourceTracker = resourceTracker;
 
+        const float INITIAL_Y_OFFSET = -6.56f;
+        const float Y_OFFSET_PER_TILE = -10.8f;
         _existedTiles.Add(CreateNewTerrainTile());
         cameraManager.OnPositionYChanged += yChangeAmount =>
         {
             _yCameraDelta += yChangeAmount;
-            if (_existedTiles.Sum(t => t.HeightPixel) < _yCameraDelta + 100)
+
+            if (_yCameraDelta + Y_OFFSET_PER_TILE / 2 < NextTilePositionY())
             {
                 _existedTiles.Add(CreateNewTerrainTile());
             }
         };
-            
+
         TerrainTile CreateNewTerrainTile()
         {
-            var terrainTile = new TerrainTile(ItemTemplates, _dirt.transform, 1920, 1080);
+            var terrainTile = new TerrainTile
+            (
+                _tilesRoot.transform, _dirtTilePrefab, NextTilePositionY(),
+                levelMapGenerator
+            );
             terrainTile.Enable(OnTriggerEvent);
             return terrainTile;
         }
-        
+
+        float NextTilePositionY()
+        {
+            float value = INITIAL_Y_OFFSET + _existedTiles.Count * Y_OFFSET_PER_TILE;
+            return value;
+        }
+
         void OnTriggerEvent(EncounterEventData data)
         {
             switch (data.Type)
@@ -80,5 +85,12 @@ public sealed class EncounterManager : MonoBehaviour
                     throw new ArgumentOutOfRangeException();
             }
         }
+    }
+
+    [Serializable]
+    public class EncounterObjectViewData
+    {
+        public EncounterObject Object;
+        public EncounterEventData Data;
     }
 }
