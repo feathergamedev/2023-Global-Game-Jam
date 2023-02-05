@@ -3174,7 +3174,7 @@ MonoBehaviour:
   EnergyLimit: 100
   FertilizeLimit: 100
   ConsumeWaterPerSecond: 3
-  ConsumeFertilizerPerSecond: 5
+  ConsumeFertilizerPerSecond: 3
   ConsumeEnergyPerTime: 10
   RecoverEnergyPerSecond: 2
   BonusRecoverEnergyPerSecond: 5
@@ -3184,8 +3184,8 @@ MonoBehaviour:
   OriginProtectDistance: 3
   RandomWeightWater: 10
   RandomWeightFertilizer: 5
-  RandomWeightBlock: 3
-  RandomWeightTime: 2
+  RandomWeightBlock: 2
+  RandomWeightTime: 1
 --- !u!4 &1137713767
 Transform:
   m_ObjectHideFlags: 0

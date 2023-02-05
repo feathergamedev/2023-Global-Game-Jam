@@ -30,7 +30,7 @@ MonoBehaviour:
     AudioVolume: 1
   - Type: 6
     AudioClip: {fileID: 8300000, guid: 40cfba9537a374138a9a2fba5817677d, type: 3}
-    AudioVolume: 1
+    AudioVolume: 0.5
   - Type: 7
     AudioClip: {fileID: 8300000, guid: 4bfb0bc71a888004d9fc485cf5b4edd3, type: 3}
     AudioVolume: 1
