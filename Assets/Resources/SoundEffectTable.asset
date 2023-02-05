@@ -25,6 +25,6 @@ MonoBehaviour:
   - Type: 4
     AudioClip: {fileID: 8300000, guid: 14a537ad7722644c492e4a7499711fac, type: 3}
     AudioVolume: 1
-  - Type: 0
+  - Type: 5
     AudioClip: {fileID: 8300000, guid: 8a802e8998eb74e63865819dea9f737a, type: 3}
     AudioVolume: 1

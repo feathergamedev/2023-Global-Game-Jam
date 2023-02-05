@@ -10,6 +10,7 @@ public enum PlayerState
     SetDirection = 1,
     SetScale = 2,
     Growing = 3,
+    GameOver = 99,
 }
 
 public class RootController : MonoBehaviour, IRootController
@@ -73,6 +74,12 @@ public class RootController : MonoBehaviour, IRootController
         {
             OnPlayerClickEnd();
         }
+    }
+
+    public void OnGameEnd()
+    {
+        _currentPlayerState = PlayerState.GameOver;
+        rootTop.gameObject.SetActive(false);
     }
 
     public async UniTask SwitchBranch()

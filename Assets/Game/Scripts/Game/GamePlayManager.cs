@@ -19,6 +19,7 @@ public class GamePlayManager : MonoBehaviour
     public LevelMapGenerator levelMapGenerator; 
 
     [SerializeField] private CanvasGroup GameplayUi;
+    [SerializeField] private AudioSource _bgm;
 
     private ResourceTracker ResourceTracker;
 
@@ -131,10 +132,16 @@ public class GamePlayManager : MonoBehaviour
         Debug.Log($"Final tier {tier.ToString()}");
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+
+        _bgm.Stop();
+
+        RootController.OnGameEnd();
+
         await CameraManager.ScrollToInitPos();
         EvolveParticle.Play();
         AudioManager.Instance.PlaySFX(ESoundEffectType.Evolve);
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+
         await TreeGirl.SetFinalAppearance(tier);
 
         await GameResultMenu.ShowMask();
