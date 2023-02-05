@@ -73,8 +73,9 @@ public class LevelMapGenerator : MonoBehaviour
     public List<EnounterObjectPos> GenerateEncounterEvents(Transform root)
     {
         var rootRenderer = root.GetComponent<SpriteRenderer>();
-        var rootWidth = rootRenderer.bounds.size.x;
-        var rootHeight = rootRenderer.bounds.size.y;
+        var rootBounds = rootRenderer.bounds;
+        var rootWidth = rootBounds.size.x;
+        var rootHeight = rootBounds.size.y;
         Debug.Log($"root bounds[{rootRenderer.bounds}]  rootWidth[{rootWidth}]  rootHeight[{rootHeight}]"); 
 
         int goalCounts = Random.Range(_gameSetting.MinEventCountPerTile, _gameSetting.MaxEventCountPerTile);
@@ -88,12 +89,27 @@ public class LevelMapGenerator : MonoBehaviour
 
             var encounterTargetPair = _SelectRandomEncounter();
             var newPoint = new Vector2(Random.value * rootWidth, Random.value * rootHeight);
-            Debug.Log($"try newpoint[{newPoint}]");
+            var newBound = new Bounds(newPoint, encounterTargetPair.Bounds.size);
+            Debug.Log($"add newPoint[{newPoint}]newBound[{newBound}]");
+            if (newBound.min.x < 0 || newBound.min.y < 0 ||
+                newBound.max.x > rootWidth || newBound.max.y > rootHeight)
+            {
+                Debug.Log($"check newPoint[{newPoint}]newBound[{newBound}] OUT");
+                continue; 
+            }
 
             var isClosed = false;
             for (var k = 0; k < encounterBounds.Count; k++)
             {
                 var prevBound = encounterBounds[k];
+                var distance = Vector2.Distance(newPoint, prevBound.Item2.center);
+                if (distance < _gameSetting.MinDistanceEachEvent)
+                {
+                    Debug.Log($"check prevBounds[{prevBound.Item2}] TooClosed");
+                    isClosed = true;
+                    break;
+                }
+
                 if (prevBound.Item2.Contains(newPoint))
                 {
                     Debug.Log($"check prevBounds[{prevBound.Item2}] HIT");
@@ -105,8 +121,6 @@ public class LevelMapGenerator : MonoBehaviour
             if (isClosed)
                 continue;
 
-            var newBound = new Bounds(newPoint, encounterTargetPair.Bounds.size);
-            Debug.Log($"add new Bounds[{newBound}]");
             encounterBounds.Add((encounterTargetPair.EnounterGameObject, newBound));
         }
 

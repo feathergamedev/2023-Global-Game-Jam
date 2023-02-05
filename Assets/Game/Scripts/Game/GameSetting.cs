@@ -23,7 +23,7 @@ public class GameSetting : MonoBehaviour
 
     public int MinEventCountPerTile;
     public int MaxEventCountPerTile;
-    public int MinDistanceEachEvent;
+    public float MinDistanceEachEvent;
 }
 
 
