@@ -5,32 +5,18 @@ using UnityEngine.UI;
 
 public class Timeer : MonoBehaviour
 {
-    public TimeResource time;
-    public float timeValue = 90;
+    private float timeValue = 90;
     public Text timerText;
-    private ResourceTracker _resourceTracker;
 
-    public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
+    public void Init(ResourceTracker ResourceTracker)
     {
-        _resourceTracker = ResourceTracker;
-
-        _resourceTracker.ResourceValueChanged += (sender, args) =>
+        ResourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)
             {
                 case TimeResource T:
-                    // Update value to UI or somewhere
-                    // args.Value;
-                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Increase)
-                    {
-                        timeValue = T.Value;
-                        // do something 
-                    }
-                    if (args.Type == ResourceValueChangedEventArgs.ChangeType.Decrease)
-                    {
-                        timeValue = T.Value;
-                        // do something 
-                    }
+                    timerText.enabled = true;
+                    timeValue = T.Value;
                     break;
             }
         };
@@ -54,6 +40,11 @@ public class Timeer : MonoBehaviour
 
     void DisplayTime(float timeToDisplay)
     {
+        if (!timerText.enabled)
+        {
+            return;
+        }
+        
         if (timeToDisplay < 0)
         {
             timeToDisplay = 0;

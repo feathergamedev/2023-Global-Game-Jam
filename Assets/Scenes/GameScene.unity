@@ -3721,8 +3721,11 @@ MonoBehaviour:
   - {fileID: 3822485860860836661, guid: 9fa7369bcb1a1fe49a4eab3ecbcb7dcc, type: 3}
   FertilizerCandidates:
   - {fileID: 8191448865331262347, guid: 4013e6aa99d714a5192e4613ddc7996c, type: 3}
+  - {fileID: 984066355991866906, guid: c6ef6c43510a52d4abd21cafc9df2e27, type: 3}
+  - {fileID: 5262125014358138582, guid: 9df4964cffac6fe41b029d56c4ed9d90, type: 3}
   BlockCandidates:
   - {fileID: 1375673758864402160, guid: de06bd161c0f44697b2c7ed4c4f8d401, type: 3}
+  - {fileID: 8908539881407019948, guid: 6c3e8d98ed74ab24dabb848ea51d823a, type: 3}
 --- !u!224 &1399649748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 655425186183055561, guid: 816d47cd4f39d47c99c46dc2448d0a3d, type: 3}
