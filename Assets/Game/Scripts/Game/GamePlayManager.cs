@@ -11,6 +11,9 @@ public class GamePlayManager : MonoBehaviour
     public CameraManager CameraManager;
     public GamePlayPanel GamePlayPanel;
     public TreeGirl TreeGirl;
+    public GameResultMenu GameResultMenu;
+
+    public ParticleSystem EvolveParticle;
 
     [SerializeField] private CanvasGroup GameplayUi;
 
@@ -41,9 +44,6 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
-
-        GamePlayPanel.Init(ResourceTracker, GameSetting);
-
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
 
@@ -85,6 +85,9 @@ public class GamePlayManager : MonoBehaviour
     {
         await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
+
+        GamePlayPanel.Init(ResourceTracker, GameSetting);
+
         DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
@@ -122,9 +125,17 @@ public class GamePlayManager : MonoBehaviour
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await CameraManager.ScrollToInitPos();
+        EvolveParticle.Play();
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await TreeGirl.SetFinalAppearance(tier);
 
-        SceneManager.LoadScene("GameScene");
+        await GameResultMenu.ShowMask();
+
+        EvolveParticle.Stop();
+        EvolveParticle.Clear();
+
+        await GameResultMenu.HideMask();
+        await GameResultMenu.OpenContent(tier);
     }
     #endregion
 
@@ -151,7 +162,7 @@ public class GamePlayManager : MonoBehaviour
             $"Branch[{ResourceTracker.Branch}]");
     }
 
-    private void _OnRootAction(int length)
+    private void _OnRootAction()
     {
         ResourceTracker.DecreaseEnergy(GameSetting.ConsumeEnergyPerTime);
     }
