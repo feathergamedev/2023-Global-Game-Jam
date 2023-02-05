@@ -3478,10 +3478,10 @@ MonoBehaviour:
   rootTop: {fileID: 1134756081}
   _nextGrowFinalNode: {fileID: 678335377}
   _lengthIndicator: {fileID: 1670857821}
-  _scaleChangeRate: 10
+  _scaleChangeRate: 20
   _lengthGrowDirection: 1
-  _minlengthScale: 3
-  _maxlengthScale: 8
+  _minlengthScale: 2
+  _maxlengthScale: 10
   _rotateSpeed: 180
   _lineRendererPrefab: {fileID: 7357602604042350993, guid: 8620424c632c040ffb048962e790cee5, type: 3}
   _currentLineRenderer: {fileID: 0}

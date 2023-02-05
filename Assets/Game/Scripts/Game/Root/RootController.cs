@@ -68,6 +68,11 @@ public class RootController : MonoBehaviour, IRootController
         {
             OnPlayerClick();
         }
+
+        if (Input.GetMouseButtonUp(0) || Input.GetButtonUp("Confirm"))
+        {
+            OnPlayerClickEnd();
+        }
     }
 
     public async UniTask SwitchBranch()
@@ -127,7 +132,20 @@ public class RootController : MonoBehaviour, IRootController
             case PlayerState.SetDirection:
                 _currentPlayerState = PlayerState.SetScale;
                 break;
+                /*
+            case PlayerState.SetScale:
+                StartCoroutine(GrowRootSequence());
+                AudioManager.Instance.PlaySFX(ESoundEffectType.GrowRoot);
+                recordCounter++;
+                break;
+                */
+        }
+    }
 
+    private void OnPlayerClickEnd()
+    {
+        switch (_currentPlayerState)
+        {
             case PlayerState.SetScale:
                 StartCoroutine(GrowRootSequence());
                 AudioManager.Instance.PlaySFX(ESoundEffectType.GrowRoot);
