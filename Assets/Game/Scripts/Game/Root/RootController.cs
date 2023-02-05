@@ -4,9 +4,11 @@ using UnityEngine;
 using Lapis.Extension;
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 public enum PlayerState
 {
+    Prepare = 0,
     SetDirection = 1,
     SetScale = 2,
     Growing = 3,
@@ -17,10 +19,7 @@ public class RootController : MonoBehaviour, IRootController
 {
     public event Action OnGrowAction;
     public event Action OnRootCrash;
-    public void StartGrow() { }
-    public void StopGrow() { }
-
-    private PlayerState _currentPlayerState = PlayerState.SetDirection;
+    private PlayerState _currentPlayerState = PlayerState.Prepare;
 
     [SerializeField] private RootTop rootTop;
     [SerializeField] private Transform _nextGrowFinalNode;
@@ -36,6 +35,7 @@ public class RootController : MonoBehaviour, IRootController
 
     [Header("Rotation")]
     [SerializeField] private float _rotateSpeed = 2;
+    private float _currentRotateSpeed = 2;
 
     [Header("LineRenderer")]
     [SerializeField] private LineRenderer _lineRendererPrefab;
@@ -76,10 +76,25 @@ public class RootController : MonoBehaviour, IRootController
         }
     }
 
-    public void OnGameEnd()
+    public void StartGrow()
+    {
+        _currentRotateSpeed = 0f;
+        DOTween.To(() => _currentRotateSpeed, x => _currentRotateSpeed = x, _rotateSpeed, 1);
+
+        _currentPlayerState = PlayerState.SetDirection;
+        rootTop.gameObject.SetActive(true);
+    }
+
+    public void StopGrow()
     {
         _currentPlayerState = PlayerState.GameOver;
         rootTop.gameObject.SetActive(false);
+    }
+
+    public void OnGameEnd()
+    {
+//        _currentPlayerState = PlayerState.GameOver;
+//        rootTop.gameObject.SetActive(false);
     }
 
     public async UniTask SwitchBranch()
@@ -119,7 +134,7 @@ public class RootController : MonoBehaviour, IRootController
                 var moveDirection = Input.GetAxisRaw("Horizontal");
 //                var newRotation = rootTop.transform.eulerAngles.z + (moveDirection * _rotateSpeed);
 //                rootTop.transform.rotation = Quaternion.Euler(new Vector3(0, 0, newRotation));
-                rootTop.transform.Rotate(new Vector3(0, 0, _rotateSpeed * Time.deltaTime));
+                rootTop.transform.Rotate(new Vector3(0, 0, _currentRotateSpeed * Time.deltaTime));
                 //                rootTop.transform.SetRotationZ(moveDirection * _rotateSpeed);
                 break;
 
@@ -179,6 +194,12 @@ public class RootController : MonoBehaviour, IRootController
         }
 
         _lengthIndicator.SetActive(true);
+
+        // 讓角度往回推一點
+        rootTop.transform.Rotate(new Vector3(0, 0, 5));
+
+        _currentRotateSpeed = 0f;
+        DOTween.To(() => _currentRotateSpeed, x => _currentRotateSpeed = x, _rotateSpeed, 1);
         _currentPlayerState = PlayerState.SetDirection;
     }
 
