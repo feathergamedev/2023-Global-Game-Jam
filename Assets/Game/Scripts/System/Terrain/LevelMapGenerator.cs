@@ -26,13 +26,14 @@ public class LevelMapGenerator : MonoBehaviour
     };
 
     private Dictionary<EncounterType, List<EnounterBoundPair>> EncounterBoundTable = new Dictionary<EncounterType, List<EnounterBoundPair>>();
-
-    private int _minCounts;
-    private int _maxCounts;
+     
     private const int TRY_LIMIT = 1000;
+    private GameSetting _gameSetting;
     
     public void Init(GameSetting gameSetting)
     {
+        _gameSetting = gameSetting;
+
         EncounterBoundTable[EncounterType.Water] = new List<EnounterBoundPair>();
         foreach (var waterObject in WaterCandidates)
         {
@@ -67,38 +68,51 @@ public class LevelMapGenerator : MonoBehaviour
                 Bounds = new Bounds(Vector3.zero, bounds.size)
             });
         }
-
-        _minCounts = 6;
-        _maxCounts = 20;
     }
 
     public List<EnounterObjectPos> GenerateEncounterEvents(Transform root)
     {
         var rootRenderer = root.GetComponent<SpriteRenderer>();
-        var rootWidth = rootRenderer.bounds.size.x;
-        var rootHeight = rootRenderer.bounds.size.y;
-        Debug.Log($"root bounds[{rootRenderer.bounds}]"); 
+        var rootBounds = rootRenderer.bounds;
+        var rootWidth = rootBounds.size.x;
+        var rootHeight = rootBounds.size.y;
+        Debug.Log($"root bounds[{rootRenderer.bounds}]  rootWidth[{rootWidth}]  rootHeight[{rootHeight}]"); 
 
-        int goalCounts = Random.Range(_minCounts, _maxCounts);
+        int goalCounts = Random.Range(_gameSetting.MinEventCountPerTile, _gameSetting.MaxEventCountPerTile);
         int tryCount = 0;
-        var encounterPairs = new List<EnounterBoundPair>();
+        var encounterBounds = new List<(GameObject, Bounds)>();
         var encounterPositions = new List<EnounterObjectPos>();
 
-        while (encounterPairs.Count < goalCounts && tryCount < TRY_LIMIT)
+        while (encounterBounds.Count < goalCounts && tryCount < TRY_LIMIT)
         {
             tryCount++;
 
             var encounterTargetPair = _SelectRandomEncounter();
             var newPoint = new Vector2(Random.value * rootWidth, Random.value * rootHeight);
-            Debug.Log($"try newpoint[{newPoint}]");
+            var newBound = new Bounds(newPoint, encounterTargetPair.Bounds.size);
+            Debug.Log($"add newPoint[{newPoint}]newBound[{newBound}]");
+            if (newBound.min.x < 0 || newBound.min.y < 0 ||
+                newBound.max.x > rootWidth || newBound.max.y > rootHeight)
+            {
+                Debug.Log($"check newPoint[{newPoint}]newBound[{newBound}] OUT");
+                continue; 
+            }
 
             var isClosed = false;
-            for (var k = 0; k < encounterPairs.Count; k++)
+            for (var k = 0; k < encounterBounds.Count; k++)
             {
-                var prevPair = encounterPairs[k];
-                if (prevPair.Bounds.Contains(newPoint))
+                var prevBound = encounterBounds[k];
+                var distance = Vector2.Distance(newPoint, prevBound.Item2.center);
+                if (distance < _gameSetting.MinDistanceEachEvent)
                 {
-                    Debug.Log($"check prevBounds[{prevPair.Bounds}] HIT");
+                    Debug.Log($"check prevBounds[{prevBound.Item2}] TooClosed");
+                    isClosed = true;
+                    break;
+                }
+
+                if (prevBound.Item2.Contains(newPoint))
+                {
+                    Debug.Log($"check prevBounds[{prevBound.Item2}] HIT");
                     isClosed = true;
                     break;
                 }
@@ -107,24 +121,20 @@ public class LevelMapGenerator : MonoBehaviour
             if (isClosed)
                 continue;
 
-            var newBound = new Bounds(newPoint, encounterTargetPair.Bounds.size);
-            Debug.Log($"add new Bounds[{newBound}]");
-            encounterPairs.Add(new EnounterBoundPair {
-                EnounterGameObject = encounterTargetPair.EnounterGameObject,
-                Bounds = newBound
-            });
+            encounterBounds.Add((encounterTargetPair.EnounterGameObject, newBound));
         }
 
         var basicPos = transform.position;
         Debug.Log($"root basicPos[{basicPos}]");
-        foreach (var pair in encounterPairs)
+        foreach (var bound in encounterBounds)
         {
-            var pos = basicPos + pair.Bounds.center;
-            pos.x += -rootWidth / 2;
-            pos.y += -rootHeight / 2;
+            var pos = bound.Item2.center;
+            Debug.Log($"basic pos [{pos}]");
+            pos.x += -rootWidth/2;
+            pos.y += -rootHeight/2;
             Debug.Log($"set go to pos [{pos}]");
-            var go = Instantiate(pair.EnounterGameObject, root);
-            go.transform.position = pos;
+            var go = Instantiate(bound.Item1, root);
+            go.transform.localPosition = pos;
 
             encounterPositions.Add(new EnounterObjectPos {
                 EnounterGameObject = go,

@@ -20,6 +20,10 @@ public class GameSetting : MonoBehaviour
 
     public uint RecoverEnergyPerSecond;
     public uint BonusRecoverEnergyPerSecond;
+
+    public int MinEventCountPerTile;
+    public int MaxEventCountPerTile;
+    public float MinDistanceEachEvent;
 }
 
 
