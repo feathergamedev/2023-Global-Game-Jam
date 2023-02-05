@@ -3311,7 +3311,6 @@ MonoBehaviour:
   _lifeController: {fileID: 453399143}
   EvolveParticle: {fileID: 1667201893}
   levelMapGenerator: {fileID: 1356845373}
-  GameplayUi: {fileID: 1422912697}
   _bgm: {fileID: 991624398}
   Status: 0
   EndType: 0
@@ -4519,6 +4518,7 @@ MonoBehaviour:
   Water: {fileID: 1647360281}
   NutrientBar: {fileID: 655244302}
   CrisBar: {fileID: 1343870671}
+  GameplayUi: {fileID: 1422912697}
 --- !u!4 &1628216465
 Transform:
   m_ObjectHideFlags: 0
