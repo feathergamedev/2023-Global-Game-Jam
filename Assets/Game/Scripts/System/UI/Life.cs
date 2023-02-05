@@ -15,6 +15,6 @@ public class Life : MonoBehaviour
 
     public void LoseLife(int index)
     {
-        _animators[index - 1].SetBool("IsLose", true);
+        _animators[index].SetBool("IsLose", true);
     }
 }
