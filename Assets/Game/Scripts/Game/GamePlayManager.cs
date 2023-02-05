@@ -14,6 +14,7 @@ public class GamePlayManager : MonoBehaviour
     public GameResultMenu GameResultMenu;
 
     public ParticleSystem EvolveParticle;
+    public LevelMapGenerator levelMapGenerator; 
 
     [SerializeField] private CanvasGroup GameplayUi;
     [SerializeField] private LevelMapGenerator _levelMapGenerator;
@@ -45,6 +46,9 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
+
+        levelMapGenerator.Init(GameSetting);
+
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
 
