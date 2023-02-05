@@ -3096,9 +3096,9 @@ MonoBehaviour:
   FertilizeLimit: 100
   ConsumeWaterPerSecond: 2
   ConsumeFertilizerPerSecond: 2
-  ConsumeEnergyPerTime: 13
+  ConsumeEnergyPerTime: 8
   RecoverEnergyPerSecond: 2
-  BonusRecoverEnergyPerSecond: 1
+  BonusRecoverEnergyPerSecond: 3
   MinEventCountPerTile: 10
   MaxEventCountPerTile: 20
   MinDistanceEachEvent: 2
@@ -4277,7 +4277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bf35b7d951a9f4193516b65c2a99b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeValue: 30
   timerText: {fileID: 27588670}
 --- !u!1 &1587441700
 GameObject:
