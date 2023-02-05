@@ -16,6 +16,7 @@ public class GamePlayManager : MonoBehaviour
     public ParticleSystem EvolveParticle;
 
     [SerializeField] private CanvasGroup GameplayUi;
+    [SerializeField] private LevelMapGenerator _levelMapGenerator;
 
     private ResourceTracker ResourceTracker;
 
@@ -39,7 +40,7 @@ public class GamePlayManager : MonoBehaviour
 
         ResourceTracker.ResourceExhausted += _OnResourceExhausted;
 
-        EncounterManager.PrepareAll(ResourceTracker, CameraManager);
+        EncounterManager.PrepareAll(ResourceTracker, CameraManager, _levelMapGenerator);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
         RootController.OnGrowAction += _OnRootAction;

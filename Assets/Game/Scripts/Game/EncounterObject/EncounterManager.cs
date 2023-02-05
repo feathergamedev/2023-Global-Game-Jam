@@ -39,7 +39,7 @@ public sealed class EncounterManager : MonoBehaviour
     
     private ResourceTracker _resourceTracker;
 
-    public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager)
+    public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager, LevelMapGenerator levelMapGenerator)
     {
         _resourceTracker = resourceTracker;
 
