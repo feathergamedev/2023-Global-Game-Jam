@@ -5,6 +5,7 @@ using DG.Tweening;
 using Lapis.Extension;
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Ease backToInitPosMoveEaseType;
 
     [SerializeField] private RootTop rootTop;
+
+    [SerializeField] private Text _gameOverText;
 
     private float distanceBuffer;
     // Start is called before the first frame update
@@ -56,5 +59,16 @@ public class CameraManager : MonoBehaviour
         transform.DOLocalMoveY(gameStartPosY, gameStartPosMoveTime).SetEase(gameStartMoveEaseType);
 
         await UniTask.Delay(TimeSpan.FromSeconds(gameStartPosMoveTime + 0.5f));
+    }
+
+    public async UniTask ShowGameOverText(string reasonString)
+    {
+        _gameOverText.text = reasonString;
+
+        _gameOverText.transform.localPosition = new Vector3(-1500, 0, 0);
+        _gameOverText.transform.DOLocalMove(new Vector3(0, 0, 0), 1).SetEase(Ease.OutBack);
+        await UniTask.Delay(TimeSpan.FromSeconds(1));
+        _gameOverText.transform.DOLocalMove(new Vector3(1500, 0, 0), 1).SetEase(Ease.InBack);
+        await UniTask.Delay(TimeSpan.FromSeconds(1));
     }
 }

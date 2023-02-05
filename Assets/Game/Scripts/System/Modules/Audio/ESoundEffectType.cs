@@ -15,4 +15,8 @@ public enum ESoundEffectType
     HitObstacle,
 
     Evolve,
+
+    ShowTeamInfo,
+
+    Click,
 }

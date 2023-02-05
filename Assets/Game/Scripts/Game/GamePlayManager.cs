@@ -23,6 +23,8 @@ public class GamePlayManager : MonoBehaviour
 
     private ResourceTracker ResourceTracker;
 
+    private string _loseReasonString = "";
+
     public GameStatus Status;
     public EndType EndType;
 
@@ -137,6 +139,8 @@ public class GamePlayManager : MonoBehaviour
 
         RootController.OnGameEnd();
 
+        await CameraManager.ShowGameOverText(_loseReasonString);
+
         await CameraManager.ScrollToInitPos();
         EvolveParticle.Play();
         AudioManager.Instance.PlaySFX(ESoundEffectType.Evolve);
@@ -200,21 +204,25 @@ public class GamePlayManager : MonoBehaviour
                 Status = GameStatus.End;
                 EndType = EndType.TimeOut;
                 Debug.Log("Status => End : TimeOut");
+                _loseReasonString = "時間到！";
                 break;
             case WaterResource water:
                 Status = GameStatus.End;
                 EndType = EndType.WaterOut;
                 Debug.Log("Status => End : WaterOut");
+                _loseReasonString = "水份乾枯！";
                 break;
             case EnergyResource energy:
                 Status = GameStatus.End;
                 EndType = EndType.EnergyOut;
                 Debug.Log("Status => End : EnergyOut");
+                _loseReasonString = "能量耗盡！";
                 break;
             case BranchResource branch:
                 Status = GameStatus.End;
                 EndType = EndType.BranchOut;
                 Debug.Log("Status => End : BranchOut");
+                _loseReasonString = "樹根用完了！";
                 break;
         }
     }
