@@ -71,7 +71,7 @@ public sealed class ResourceTracker
         ResourceValueChanged?.Invoke
             (this, new ResourceValueChangedEventArgs(_currentTime, newTime, ResourceValueChangedEventArgs.ChangeType.Decrease));
         _currentTime = newTime;
-        if (Time < _timeSetting.LowerBound)
+        if (Time <= _timeSetting.LowerBound)
         {
             ResourceExhausted?.Invoke(this, new ResourceExhaustedEventArgs(_currentTime));
         }

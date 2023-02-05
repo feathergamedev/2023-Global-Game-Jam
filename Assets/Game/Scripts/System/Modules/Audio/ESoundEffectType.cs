@@ -13,4 +13,6 @@ public enum ESoundEffectType
     GetProp,
 
     HitObstacle,
+
+    Evolve,
 }

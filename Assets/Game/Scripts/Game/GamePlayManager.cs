@@ -133,6 +133,7 @@ public class GamePlayManager : MonoBehaviour
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await CameraManager.ScrollToInitPos();
         EvolveParticle.Play();
+        AudioManager.Instance.PlaySFX(ESoundEffectType.Evolve);
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
         await TreeGirl.SetFinalAppearance(tier);
 

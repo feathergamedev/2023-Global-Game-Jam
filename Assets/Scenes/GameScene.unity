@@ -3086,7 +3086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23c9dc7ff7e2ed4c93414fbcdc00e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialLifeSeconds: 90
+  InitialLifeSeconds: 5
   InitialWater: 70
   InitialEnergy: 70
   InitialFertilizer: 70
