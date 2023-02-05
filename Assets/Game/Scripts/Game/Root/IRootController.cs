@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IRootController
 {
-    event Action<int> OnGrowAction;
+    event Action OnGrowAction;
 
     event Action OnRootCrash;
 

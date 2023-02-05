@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class RootTop : MonoBehaviour
 {
@@ -20,12 +21,6 @@ public class RootTop : MonoBehaviour
     void Start()
     {
         initPosY = transform.position.y;
-
-//          _lineRenderer.material.SetTextureScale("_MainTex", new Vector2(5f, 5f));
-
-        _lineRenderer.positionCount = 2;
-        var initLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
-        _lineRenderer.SetPosition(0, initLinePointPos);
     }
 
     // Update is called once per frame
@@ -38,7 +33,16 @@ public class RootTop : MonoBehaviour
         }
     }
 
-    public void MoveTo(Vector3 position)
+    public void SetLineRenderer(LineRenderer lineRenderer, bool isFirstStart = false)
+    {
+        _lineRenderer = lineRenderer;
+        _lineRenderer.positionCount = 2;
+        var initLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
+        _lineRenderer.SetPosition(0, initLinePointPos);
+        _lineRenderer.SetPosition(1, initLinePointPos);
+    }
+
+    public async UniTask MoveTo(Vector3 position, bool needToDrawLine = true)
     {
         isMoving = true;
 
@@ -50,10 +54,16 @@ public class RootTop : MonoBehaviour
         transform.DOMove(position, Config.ROOT_GROW_PERFORM_TIME).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                _lineRenderer.positionCount++;
-                var newLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
-                _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, newLinePointPos);
+                if (needToDrawLine)
+                {
+                    _lineRenderer.positionCount++;
+                    var newLinePointPos = new Vector3(transform.position.x, transform.position.y, 0);
+                    _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, newLinePointPos);
+                }
+
                 isMoving = false;
             });
+
+        await UniTask.NextFrame();
     }
 }
