@@ -737,7 +737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec031df18be688b4cb5131c729baf810, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 664f4e2b451237549b72f64aabf1d13e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4188,7 +4188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a0c6f13159b68de4ab33900d5d5e301d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43aedb4d0296f9e449b96cb103ddc8fe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10648,7 +10648,7 @@ MonoBehaviour:
   _gameOverTimeSprite: {fileID: 21300000, guid: 81d3f2e36892840d0b2450423cf168de, type: 3}
   _gameOverWaterSprite: {fileID: 21300000, guid: 46320ffcba766470a9f94f7ad63ec138, type: 3}
   _gameOverEnergySprite: {fileID: 21300000, guid: 18c9f32f6ac304bc081243ac31712f70, type: 3}
-  _gameOverBranchSprite: {fileID: 21300000, guid: 18c9f32f6ac304bc081243ac31712f70, type: 3}
+  _gameOverBranchSprite: {fileID: 21300000, guid: da8dcfcf2c419424a91ea3f504a60a4e, type: 3}
   _gameOverCheatSprite: {fileID: 21300000, guid: 85ad41fb3491043c6baeae675d35cbde, type: 3}
   duration: 0.5
   strengh: 1
