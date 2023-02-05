@@ -1107,7 +1107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -265}
+  m_AnchoredPosition: {x: 0, y: -347}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &476971784
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3165,7 +3165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23c9dc7ff7e2ed4c93414fbcdc00e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialLifeSeconds: 90
+  InitialLifeSeconds: 60
   InitialWater: 70
   InitialEnergy: 70
   InitialFertilizer: 70
@@ -3173,7 +3173,7 @@ MonoBehaviour:
   WaterLimit: 100
   EnergyLimit: 100
   FertilizeLimit: 100
-  ConsumeWaterPerSecond: 3
+  ConsumeWaterPerSecond: 5
   ConsumeFertilizerPerSecond: 1
   ConsumeEnergyPerTime: 15
   RecoverEnergyPerSecond: 2
@@ -3182,10 +3182,10 @@ MonoBehaviour:
   MaxEventCountPerTile: 20
   MinDistanceEachEvent: 2
   OriginProtectDistance: 3
-  RandomWeightWater: 7
-  RandomWeightFertilizer: 5
-  RandomWeightBlock: 3
-  RandomWeightTime: 2
+  RandomWeightWater: 10
+  RandomWeightFertilizer: 4
+  RandomWeightBlock: 2
+  RandomWeightTime: 1
 --- !u!4 &1137713767
 Transform:
   m_ObjectHideFlags: 0
@@ -3281,6 +3281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1197910006}
+  - component: {fileID: 1197910007}
   m_Layer: 5
   m_Name: GameOverLayout
   m_TagString: Untagged
@@ -3309,6 +3310,18 @@ RectTransform:
   m_AnchoredPosition: {x: -1500, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1197910007
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197910005}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1251606199
 GameObject:
   m_ObjectHideFlags: 0
@@ -3899,7 +3912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10636,6 +10649,11 @@ MonoBehaviour:
   _gameOverWaterSprite: {fileID: 21300000, guid: 46320ffcba766470a9f94f7ad63ec138, type: 3}
   _gameOverEnergySprite: {fileID: 21300000, guid: 18c9f32f6ac304bc081243ac31712f70, type: 3}
   _gameOverBranchSprite: {fileID: 21300000, guid: 18c9f32f6ac304bc081243ac31712f70, type: 3}
+  _gameOverCheatSprite: {fileID: 21300000, guid: 85ad41fb3491043c6baeae675d35cbde, type: 3}
+  duration: 0.5
+  strengh: 1
+  vibrato: 3
+  randomness: 0
 --- !u!114 &2002963155
 MonoBehaviour:
   m_ObjectHideFlags: 0
